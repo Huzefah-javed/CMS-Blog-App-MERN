@@ -1,8 +1,11 @@
 import {Router} from "express"
-import adminRouter from "./admin.router.js";
+import { handleRegistration } from "../controller/main.controller.js";
 
 const mainRouter = Router();
 
-mainRouter.use("/admin", adminRouter)
+// mainRouter.use("/admin", adminRouter)
+mainRouter.post("/AdminRegistration", handleRegistration)
+mainRouter.post("/writerRegistration", handleRegistration)
+mainRouter.post("/userRegistration", handleRegistration)
 
 export default mainRouter;

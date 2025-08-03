@@ -1,15 +1,13 @@
 import express from "express"
 import mongoose from "mongoose";
 import dotenv from "dotenv"
-import cors from "cors"
 import mainRouter from "./router/router.main.js";
 
 
 const app = express();
-app.use(cors())
 dotenv.config()
 
-
+app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 
 app.use("/",mainRouter)
