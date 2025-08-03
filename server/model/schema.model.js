@@ -21,6 +21,15 @@ const UsersStructure = new Schema({
         type: String,
         default: 'user',
     },
+    status: {
+        type: String,
+        default: 'unblock',
+    },
+    isApprove:{
+        type: String,
+        default: "pending",
+        enum:["pending","decline","approved"]
+    },
     createdAt: {
         type: Date,
         default: Date.now

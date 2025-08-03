@@ -20,5 +20,6 @@ app.listen(process.env.PORT, ()=>{
     console.log("port ready on 5000")
 })
 } catch (error) {
+    console.log(error)
     console.log("error occurred in the db connection")
 }
