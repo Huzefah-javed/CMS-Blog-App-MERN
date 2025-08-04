@@ -61,7 +61,7 @@ post:{
     type:[
         {
         userId:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "User"
       },
       name: {

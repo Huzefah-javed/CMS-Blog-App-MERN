@@ -1,0 +1,78 @@
+import { gettingFeed, gettingSinglePost, gettingUserProfile, userComment } from "../model/user.model.js"
+
+
+export const handleUserDashboard =(req, res)=>{
+    if (req.user.role !== "user") return res.status(500).send("You are allowed to get this route access")
+        try {
+            
+        } catch (error) {
+            
+        }
+}
+
+export const handleUserFeed =async(req, res)=>{
+    if (req.user.role !== "user") return res.status(500).send("You are allowed to get this route access")
+        try {
+            const {skip} = req.query
+            const resFeed = await gettingFeed(skip)
+            if (resFeed.status === 201) {
+                res.status(201).json({status:201, message: resFeed.data})
+            }else{
+                res.status(500).json({status:500, message: resFeed.data})
+            }
+                
+        } catch (error) {
+            res.status(500).json({status:500, message: error.message})
+            
+        }
+}
+
+export const handleUserProfile =async(req, res)=>{
+    if (req.user.role !== "user") return res.status(500).send("You are allowed to get this route access")
+        try {
+                const userProfile = await gettingUserProfile(req.user.id)
+            if (userProfile.status === 201) {
+                res.status(201).json({status:201, message: userProfile.data})
+            }else{
+                res.status(500).json({status:500, message: userProfile.data})
+            }
+                
+        } catch (error) {
+            res.status(500).json({status:500, message: error.message})
+            
+        }
+}
+
+export const handleUserPostDetail =async(req, res)=>{
+    if (req.user.role !== "user") return res.status(500).send("You are allowed to get this route access")
+        try {
+            const {id} = req.params
+                const singlePostDetail = await gettingSinglePost(id)
+            if (singlePostDetail.status === 201) {
+                res.status(201).json({status:201, message: singlePostDetail.data})
+            }else{
+                res.status(500).json({status:500, message: singlePostDetail.data})
+            }
+                
+        } catch (error) {
+            res.status(500).json({status:500, message: error.message})
+            
+        }
+}
+
+export const handleUserComment =async(req, res)=>{
+    if (req.user.role !== "user") return res.status(500).send("You are allowed to get this route access")
+        try {
+                const {comment, postId} = req.body
+                const addComment = await userComment(comment, postId, req.user.id, req.user.name)
+            if (addComment.status === 201) {
+                res.status(201).json({status:201, message: addComment.data})
+            }else{
+                res.status(500).json({status:500, message: addComment.data})
+            }
+                
+        } catch (error) {
+            res.status(500).json({status:500, message: error.message})
+            
+        }
+}

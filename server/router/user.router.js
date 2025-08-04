@@ -1,10 +1,12 @@
 import {Router} from "express"
+import { handleUserComment, handleUserDashboard, handleUserFeed, handleUserPostDetail, handleUserProfile } from "../controller/user.controller.js";
 
 const userRouter = Router();
 
-userRouter.get("/user/dashboard", (req, res)=>{res.send("dashboard")})
-userRouter.get("/user/post/:id", (req, res)=>{res.send("writers")})
-userRouter.get("/user/posts", (req, res)=>{res.send("posts")})
-userRouter.get("/user/profile", (req, res)=>{res.send("settings")})
+userRouter.get("/dashboard", handleUserDashboard)
+userRouter.get("/feeds", handleUserFeed)
+userRouter.get("/feeds/:id", handleUserPostDetail)
+userRouter.post("/addComment", handleUserComment)
+userRouter.get("/profile", handleUserProfile)
 
 export default userRouter;

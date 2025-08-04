@@ -1,4 +1,4 @@
-import { users } from "./schema.model.js"
+import { blogs, users } from "./schema.model.js"
 
 
 export const userCounts =async()=>{
@@ -92,8 +92,72 @@ export const adminProfile =async(adminId)=>{
             data: ""
         }
         try {
-           const adminId = await users.find({_id : adminId})
-            result.data = adminId;
+           const admin = await users.find({_id : adminId})
+            result.data = admin;
+            result.status = 201
+        } catch (error) {
+            result.status = 500
+            result.data = error.message
+        }
+        return result;
+}
+
+export const gettingFeed =async(skipPage)=>{
+     let result = {
+            status: 0,
+            data: ""
+        }
+        try {
+           const blogFeed = await blogs.find({status: "approved"}).sort({createdAt:-1}).skip(skipPage*10).limit(10)
+            result.data = blogFeed;
+            result.status = 201
+        } catch (error) {
+            result.status = 500
+            result.data = error.message
+        }
+        return result;
+}
+
+export const gettingUserProfile =async(id)=>{
+     let result = {
+            status: 0,
+            data: ""
+        }
+        try {
+           const user = await users.find({_id : id})
+            result.data = user[0];
+            result.status = 201
+        } catch (error) {
+            result.status = 500
+            result.data = error.message
+        }
+        return result;
+}
+
+export const gettingSinglePost =async(id)=>{
+     let result = {
+            status: 0,
+            data: ""
+        }
+        try {
+           const singlePost = await blogs.find({_id : id})
+            result.data = singlePost[0];
+            result.status = 201
+        } catch (error) {
+            result.status = 500
+            result.data = error.message
+        }
+        return result;
+}
+
+export const userComment =async(userComment, postId, userProfileId, userName)=>{
+     let result = {
+            status: 0,
+            data: ""
+        }
+        try {
+            await blogs.findOneAndUpdate({_id: postId}, {$push:{Comments: {userId: userProfileId, name: userName, comment: userComment}}})
+            result.data = "comment added";
             result.status = 201
         } catch (error) {
             result.status = 500
