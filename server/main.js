@@ -2,14 +2,17 @@ import express from "express"
 import mongoose from "mongoose";
 import dotenv from "dotenv"
 import mainRouter from "./router/router.main.js";
+import cookieParser from "cookie-parser";
+
 
 
 const app = express();
-dotenv.config()
 
+dotenv.config()
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 
+app.use(cookieParser())
 app.use("/",mainRouter)
 
 try {

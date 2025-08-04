@@ -49,6 +49,10 @@ post:{
     type: String,
     required: true,
   },
+  creatorId:{
+    type: String,
+    required: true
+  },
   likes:{
     type: Number,
     default: 0
@@ -78,7 +82,7 @@ post:{
   },
   status:{
     type: String,
-    enum:["approved", "pending", "decline"]
+    enum:["approved", "pending", "decline", "drafted"]
   },
   feedBackByAdmin:{
     type: String,

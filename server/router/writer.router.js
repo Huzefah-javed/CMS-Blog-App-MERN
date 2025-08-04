@@ -1,11 +1,13 @@
 import {Router} from "express"
+import { handleCreatePost, handleDraftPost, handleEditPost, handlePosts, handleWriterDashboard, handleWriterProfile } from "../controller/writer.controller.js";
 
 const writerRouter = Router();
-
-writerRouter.get("/writer/dashboard", (req, res)=>{res.send("dashboard")})
-writerRouter.get("/writer/edit/:id", (req, res)=>{res.send("users")})
-writerRouter.get("/writer/new-post", (req, res)=>{res.send("writers")})
-writerRouter.get("/writer/posts", (req, res)=>{res.send("posts")})
-writerRouter.get("/writer/profile", (req, res)=>{res.send("settings")})
+    
+    writerRouter.get("/dashboard", handleWriterDashboard) 
+    writerRouter.post("/createPost", handleCreatePost)
+    writerRouter.post("/draftPost", handleDraftPost)
+    writerRouter.get("/edit/:id", handleEditPost)
+    writerRouter.get("/posts", handlePosts)
+    writerRouter.get("/profile", handleWriterProfile)
 
 export default writerRouter;

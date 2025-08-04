@@ -1,3 +1,4 @@
+import  argon2  from "argon2";
 import { blogs, users } from "./schema.model.js";
 
 
@@ -16,4 +17,24 @@ export const registration =async(name, email, password, role)=>{
         result.message=error.message;
     }
     return result;
+}
+
+export const loginConfirmation =async(inputName, inputEmail, inputPassword, inputRole)=>{
+    let result  = {
+        status: 0,
+        data:""
+                  };
+    try {
+        const profile = await users.find({name: inputName, email: inputEmail, role: inputRole})
+        const isPassCorrect =await argon2.verify(profile[0].password, inputPassword)
+        if (profile.length===1 && isPassCorrect) {
+            result.status = 201;
+            result.data = profile[0]
+            
+        }
+    } catch (error) {
+        result.status = 500;
+        result.message=error.message;
+    }
+    return result;   
 }

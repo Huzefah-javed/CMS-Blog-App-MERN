@@ -4,6 +4,8 @@ import { writerCounts, approveWriter, pendingWriters, declineWriter } from "../m
 
 
 export const handleAdminDashboard =async(req,res)=>{
+    
+    if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
     try {
         
         const resUser = await userCounts();
@@ -46,6 +48,8 @@ export const handleAdminDashboard =async(req,res)=>{
 
 
 export const handlePendingUser =async(req,res)=> {
+    
+    if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
     try {
         const response = await pendingUsers()
         if (response.status === 201) {
@@ -71,6 +75,8 @@ export const handlePendingUser =async(req,res)=> {
 
 
 export const handleApprovingUser =async(req,res)=>{
+    
+    if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
         try {
              const {id} = req.params;
             const response = await approveUser(id)
@@ -95,6 +101,8 @@ export const handleApprovingUser =async(req,res)=>{
 }
 
 export const handlePendingWriter =async(req,res)=> {
+    
+    if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
     try {
         const response = await pendingWriters()
         if (response.status === 201) {
@@ -120,6 +128,8 @@ export const handlePendingWriter =async(req,res)=> {
 
 
  export const handleApprovingWriter =async(req,res)=>{
+    
+    if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
     try {
            const {id} = req.params;
          const response = await approveWriter(id)
@@ -144,6 +154,8 @@ export const handlePendingWriter =async(req,res)=> {
      }
                 
 export const handlePendingPost =async(req, res)=> {
+    
+    if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
         try {
         const response = await pendingPosts()
         if (response.status === 201) {
@@ -169,6 +181,8 @@ export const handlePendingPost =async(req, res)=> {
 
 
  export const handleApprovingPost =async(req,res)=>{
+    
+    if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
     try {
            const {id} = req.params;
          const response = await approvePost(id)
@@ -194,6 +208,8 @@ export const handlePendingPost =async(req, res)=> {
 
 
    export const handleDeclineUser =async(req,res)=>{
+    
+    if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
         try {
            const {id} = req.params;
          const response = await declineUser(id)
@@ -218,6 +234,8 @@ export const handlePendingPost =async(req, res)=> {
      }
 
      export const handleDeclineWriter =async(req,res)=>{
+        
+    if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
         try {
            const {id} = req.params;
          const response = await declineWriter(id)
@@ -242,6 +260,8 @@ export const handlePendingPost =async(req, res)=> {
      }
 
    export const handleDecliningPost =async(req,res)=>{
+    
+    if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
          try {
            const {id} = req.params;
          const response = await declinePost(id)
@@ -266,6 +286,8 @@ export const handlePendingPost =async(req, res)=> {
    }
 
    export const handleAdminProfile =async(req,res)=>{
+    
+    if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
     try {
          const id = ""
         const response = await adminProfile(id);
