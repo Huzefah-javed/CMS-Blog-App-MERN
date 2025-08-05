@@ -156,8 +156,59 @@ export const userComment =async(userComment, postId, userProfileId, userName)=>{
             data: ""
         }
         try {
+            await users.findOneAndUpdate({_id:userProfileId}, {$push:{commentedPosts: postId}})
             await blogs.findOneAndUpdate({_id: postId}, {$push:{Comments: {userId: userProfileId, name: userName, comment: userComment}}})
             result.data = "comment added";
+            result.status = 201
+        } catch (error) {
+            result.status = 500
+            result.data = error.message
+        }
+        return result;
+}
+
+export const userLike =async(postId, userProfileId)=>{
+     let result = {
+            status: 0,
+            data: ""
+        }
+        try {
+            await users.findOneAndUpdate({_id:userProfileId}, {$push:{likePosts: postId}})
+            await blogs.findOneAndUpdate({_id: postId}, {$push:{likes: userProfileId}})
+            result.data = "Like added";
+            result.status = 201
+        } catch (error) {
+            result.status = 500
+            result.data = error.message
+        }
+        return result;
+}
+
+export const userDetail =async(id)=>{
+     let result = {
+            status: 0,
+            data: ""
+        }
+        try {
+           const userDetail = await users.find({_id: id})
+           result.data = userDetail[0];
+           result.status = 201
+        } catch (error) {
+            result.status = 500
+            result.data = error.message
+        }
+        return result;
+}
+
+export const userAddToFav =async(postId, userProfileId)=>{
+     let result = {
+            status: 0,
+            data: ""
+        }
+        try {
+            
+            await users.findOneAndUpdate({_id:userProfileId}, {$push:{favPosts: postId}})
+            result.data = "Added to favorite";
             result.status = 201
         } catch (error) {
             result.status = 500

@@ -1,11 +1,17 @@
-import { gettingFeed, gettingSinglePost, gettingUserProfile, userComment } from "../model/user.model.js"
+import { gettingFeed, gettingSinglePost, gettingUserProfile, userAddToFav, userComment, userDetail, userLike } from "../model/user.model.js"
 
 
-export const handleUserDashboard =(req, res)=>{
+export const handleUserDashboard =async(req, res)=>{
     if (req.user.role !== "user") return res.status(500).send("You are allowed to get this route access")
         try {
-            
+             const dashboardDetail = await userDetail(req.user.id)
+             if (dashboardDetail.status === 201) {
+                res.status(201).json({status:201, message: dashboardDetail.data})
+            }else{
+                res.status(500).json({status:500, message: dashboardDetail.data})
+            }               
         } catch (error) {
+            res.status(500).json({status:500, message: error.message})
             
         }
 }
@@ -65,6 +71,40 @@ export const handleUserComment =async(req, res)=>{
         try {
                 const {comment, postId} = req.body
                 const addComment = await userComment(comment, postId, req.user.id, req.user.name)
+            if (addComment.status === 201) {
+                res.status(201).json({status:201, message: addComment.data})
+            }else{
+                res.status(500).json({status:500, message: addComment.data})
+            }
+                
+        } catch (error) {
+            res.status(500).json({status:500, message: error.message})
+            
+        }
+}
+
+export const handleUserLike =async(req, res)=>{
+    if (req.user.role !== "user") return res.status(500).send("You are allowed to get this route access")
+        try {
+                const {postId} = req.body
+                const addComment = await userLike(postId, req.user.id)
+            if (addComment.status === 201) {
+                res.status(201).json({status:201, message: addComment.data})
+            }else{
+                res.status(500).json({status:500, message: addComment.data})
+            }
+                
+        } catch (error) {
+            res.status(500).json({status:500, message: error.message})
+            
+        }
+}
+
+export const handleUserAddToFav =async(req, res)=>{
+    if (req.user.role !== "user") return res.status(500).send("You are allowed to get this route access")
+        try {
+                const {postId} = req.body
+                const addComment = await userAddToFav(postId, req.user.id)
             if (addComment.status === 201) {
                 res.status(201).json({status:201, message: addComment.data})
             }else{

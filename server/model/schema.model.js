@@ -30,6 +30,18 @@ const UsersStructure = new Schema({
         default: "pending",
         enum:["pending","decline","approved"]
     },
+    commentedPosts:{
+      type:Array,
+      default: []
+    },
+    likePosts:{
+      type:Array,
+      default: []
+    },
+    favPosts:{
+      type:Array,
+      default: []
+    },
     createdAt: {
         type: Date,
         default: Date.now
@@ -54,8 +66,8 @@ post:{
     required: true
   },
   likes:{
-    type: Number,
-    default: 0
+    type: Array,
+    default: []
   },
   Comments:{
     type:[
