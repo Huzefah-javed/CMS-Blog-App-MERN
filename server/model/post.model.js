@@ -40,7 +40,7 @@ export const newPosts =async()=>{
         data: ""
     }
     try {
-        const count = await blogs.find().sort({createdAt: -1}).limit(5)
+        const count = await blogs.find({}, {title:1, status:1, createdAt: 1}).sort({createdAt: -1}).limit(5)
         result.data = count
         result.status = 201
     } catch (error) {

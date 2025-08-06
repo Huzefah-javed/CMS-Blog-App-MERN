@@ -8,7 +8,7 @@ export const writerCounts =async()=>{
         data: -0
     };
     try {
-        const count = await users.countDocuments({role: "writer"})
+        const count = await users.countDocuments({role: "writer", status: "approved"})
         result.status = 201
         result.message = "success"
         result.data = count

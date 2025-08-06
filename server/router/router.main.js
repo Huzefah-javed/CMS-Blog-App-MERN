@@ -9,7 +9,7 @@ const mainRouter = Router();
 
 
 
-mainRouter.use("/admin", cookieVerifying,adminRouter)
+mainRouter.use("/admin",adminRouter)
 mainRouter.use("/writer", cookieVerifying,writerRouter)
 mainRouter.use("/user", cookieVerifying,userRouter)
 mainRouter.post("/adminRegistration", handleRegistration)

@@ -5,7 +5,7 @@ import { writerCounts, approveWriter, pendingWriters, declineWriter } from "../m
 
 export const handleAdminDashboard =async(req,res)=>{
     
-    if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
+    // if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
     try {
         
         const resUser = await userCounts();
@@ -23,10 +23,12 @@ export const handleAdminDashboard =async(req,res)=>{
             res.status(201).json({
                 status: resUser.status,
                 message: resUser.message,
-                userCounts:  resUser.data,
-                writerCounts:  resWriter.data,
-                blogCounts:  resPost.data,
-                pendingBlogCount:  resPendPost.data,
+                cardData:[
+                            {PendingBlogs:  resPendPost.data},
+                            {TotalUsers:  resUser.data},
+                            {TotalWriters:  resWriter.data},
+                            {TotalBlogs:  resPost.data}
+                        ],
                 latestUserJoin:  resNewUsersJoin.data,
                 latestPosts:  resNewPosts.data,
          

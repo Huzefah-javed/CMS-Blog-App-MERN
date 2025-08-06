@@ -8,7 +8,7 @@ export const userCounts =async()=>{
         data: -0
     };
     try {
-        const count = await users.countDocuments({role: "user"})
+        const count = await users.countDocuments({role: "user", status:"approved"})
         result.status = 201
         result.message = "success"
         result.data = count
@@ -28,7 +28,7 @@ export const newUsersJoin =async()=>{
         data: ""
     }
     try {
-        const count = await users.find().sort({createdAt: -1}).limit(5)
+        const count = await users.find({}, {name:1, role:1, createdAt:1}).sort({createdAt: -1}).limit(5)
         result.data = count
         result.status = 201
     } catch (error) {
