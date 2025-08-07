@@ -20,11 +20,14 @@ export const handleWriterDashboard =async(req, res)=>{
                 resLatestPost.status === 201
             ) {
                 res.status(201).json({
+
                     status: 201,
-                    totalPosts: resTotalPosts.data,
-                    totalApprovedPosts:  resTotalApprovedPosts.data,
-                    totalPendingPosts:  resTotalPendingPosts.data,
-                    totalDeclinePosts:  resTotalDeclinePosts.data,
+                    cardData:[
+                    {totalPosts: resTotalPosts.data},
+                    {totalApprovedPosts:  resTotalApprovedPosts.data},
+                    {totalPendingPosts:  resTotalPendingPosts.data},
+                    {totalDeclinePosts:  resTotalDeclinePosts.data}
+                    ],
                     totalLikesAndCommentsOnPosts:  resTotalLikesAndComments.data,
                     latestPost:  resLatestPost.data,
              

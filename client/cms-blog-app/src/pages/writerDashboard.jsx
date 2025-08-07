@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
 import { DashboardDetail } from "../components/dashboardDetail";
 import { SideMenuDashboard } from "../components/sideMenu";
-import { adminDashboardData } from "../Api/api.js";
+import { writerDashboardData } from "../Api/api";
 
-export function AdminDashboard(){
+export function WriterDashboard(){
 
 const [apiData, setApiData] = useState("")
 
     useEffect(()=>{
      async function fetch(){
-      const data =  await adminDashboardData()
+      const data =  await writerDashboardData()
      setApiData(data)
      }
      fetch()
     },[])
 
-    
-    const postActivities = apiData.latestPosts
+    console.log(apiData)
+    const postActivities = apiData.totalLikesAndCommentsOnPosts
     const userActivities = apiData.latestUserJoin
     const cardsData = apiData.cardData
 

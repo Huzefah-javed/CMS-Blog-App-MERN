@@ -23,9 +23,9 @@ export const handleRegistration=async(req, res)=>{
 
 export const handleLogin =async(req, res)=>{
     try {
-        const {name, email, password, role} = req.body
+        const {email, password, role} = req.body
 
-       const response = await loginConfirmation(name, email, password, role)
+       const response = await loginConfirmation(email, password, role)
 
        if (response.status === 201) {
             const {name, email, role, _id} = response.data

@@ -19,13 +19,13 @@ export const registration =async(name, email, password, role)=>{
     return result;
 }
 
-export const loginConfirmation =async(inputName, inputEmail, inputPassword, inputRole)=>{
+export const loginConfirmation =async(inputEmail, inputPassword, inputRole)=>{
     let result  = {
         status: 0,
         data:""
                   };
     try {
-        const profile = await users.find({name: inputName, email: inputEmail, role: inputRole})
+        const profile = await users.find({email: inputEmail, role: inputRole})
         const isPassCorrect =await argon2.verify(profile[0].password, inputPassword)
         if (profile.length===1 && isPassCorrect) {
             result.status = 201;

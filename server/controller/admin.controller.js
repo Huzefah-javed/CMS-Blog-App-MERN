@@ -5,7 +5,7 @@ import { writerCounts, approveWriter, pendingWriters, declineWriter } from "../m
 
 export const handleAdminDashboard =async(req,res)=>{
     
-    // if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
+    if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
     try {
         
         const resUser = await userCounts();
