@@ -166,7 +166,7 @@ export const latestPost =async(id)=>{
     return result;
 }
 
-export const insertingPost =async(writerTitle, writerPost, writerCreatorId, draftPostId = null)=>{
+export const insertingPost =async(writerTitle, writerPost, writerCreatorId, writerName,draftPostId = null)=>{
     let result = {
         status: 0,
         data: ""
@@ -179,6 +179,7 @@ export const insertingPost =async(writerTitle, writerPost, writerCreatorId, draf
                         title: writerTitle,
                         post: writerPost, 
                         creatorId: writerCreatorId,
+                        creatorName: writerName,
                         status: "pending"
                             })
         result.data = "post created successfully"

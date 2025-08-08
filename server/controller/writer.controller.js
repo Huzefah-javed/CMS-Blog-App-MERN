@@ -55,7 +55,7 @@ export const handleCreatePost =async(req, res)=> {
         const finalTitle = title.trim();
         const finalPost = post.trim();
 
-        const resInsertPost = await  insertingPost(finalTitle, finalPost, req.user.id, draftPostId)
+        const resInsertPost = await  insertingPost(finalTitle, finalPost, req.user.id, req.user.name, draftPostId)
         if (resInsertPost.status === 201) {
             res.status(201).json({
                 status: 201,

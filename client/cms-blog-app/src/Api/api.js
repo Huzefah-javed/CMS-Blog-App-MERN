@@ -14,6 +14,11 @@ export const writerDashboardData =async()=>{
    return result.data;
 }
 
+export const blogPosts =async()=>{
+   const result = await api.get("user/feeds", {withCredentials: true})
+   return result.data.message;
+}
+
 export const login =async(form)=> {
    const result = await api.post("/login", form, {withCredentials: true})
    console.log(result.data)

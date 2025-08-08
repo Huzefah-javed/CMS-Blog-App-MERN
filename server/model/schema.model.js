@@ -99,6 +99,10 @@ post:{
   feedBackByAdmin:{
     type: String,
   },
+  creatorName: {
+    type: String,
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now
