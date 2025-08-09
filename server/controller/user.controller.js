@@ -69,7 +69,9 @@ export const handleUserPostDetail =async(req, res)=>{
 export const handleUserComment =async(req, res)=>{
     if (req.user.role !== "user") return res.status(500).send("You are allowed to get this route access")
         try {
-                const {comment, postId} = req.body
+                const {postId, comment} = req.body
+                console.log(req.body)
+                console.log(comment, postId)
                 const addComment = await userComment(comment, postId, req.user.id, req.user.name)
             if (addComment.status === 201) {
                 res.status(201).json({status:201, message: addComment.data})

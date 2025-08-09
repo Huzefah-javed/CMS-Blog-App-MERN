@@ -1,5 +1,6 @@
+import mongoose from "mongoose";
 import { blogs, users } from "./schema.model.js"
-
+import crypto from "crypto"
 
 export const userCounts =async()=>{
      let result={
@@ -59,6 +60,7 @@ export const approveUser =async(id)=>{
         status: 0,
         message: ""
     }
+
     try {
         const pendingUsers = await users.updateOne({_id: id},{$set: {isApprove: "approve"}})
         result.message = "User Approved successfully"
@@ -139,8 +141,9 @@ export const gettingSinglePost =async(id)=>{
             status: 0,
             data: ""
         }
+        const objectId= new mongoose.Types.ObjectId(id)
         try {
-           const singlePost = await blogs.find({_id : id})
+           const singlePost = await blogs.find({_id : objectId},{title:1, creatorName:1, createdAt:1})
             result.data = singlePost[0];
             result.status = 201
         } catch (error) {
@@ -156,8 +159,13 @@ export const userComment =async(userComment, postId, userProfileId, userName)=>{
             data: ""
         }
         try {
-            await users.findOneAndUpdate({_id:userProfileId}, {$push:{commentedPosts: postId}})
-            await blogs.findOneAndUpdate({_id: postId}, {$push:{Comments: {userId: userProfileId, name: userName, comment: userComment}}})
+            console.log(postId, userProfileId)
+             const postObjectId = new mongoose.Types.ObjectId(postId);
+                
+            const userObjectId = new mongoose.Types.ObjectId(userProfileId);
+            console.log(postObjectId, userObjectId)
+            await users.findOneAndUpdate({_id:userObjectId}, {$addToSet:{commentedPosts: postId}})
+            await blogs.findOneAndUpdate({_id: postObjectId}, {$push:{Comments: {userId: userProfileId, name: userName, comment: userComment}}})
             result.data = "comment added";
             result.status = 201
         } catch (error) {
@@ -167,14 +175,21 @@ export const userComment =async(userComment, postId, userProfileId, userName)=>{
         return result;
 }
 
-export const userLike =async(postId, userProfileId)=>{
+export const userLike =async(postId, userId)=>{
      let result = {
             status: 0,
             data: ""
         }
-        try {
-            await users.findOneAndUpdate({_id:userProfileId}, {$push:{likePosts: postId}})
-            await blogs.findOneAndUpdate({_id: postId}, {$push:{likes: userProfileId}})
+            console.log(postId, userId)
+            try {
+                const postObjectId = new mongoose.Types.ObjectId(postId);
+                
+                const userObjectId = new mongoose.Types.ObjectId(userId);
+                console.log(postObjectId, userObjectId)
+
+            const result2 = await blogs.updateOne({_id: postObjectId}, {$addToSet:{likes: userId}})
+          const result1 =  await users.updateOne({_id: userObjectId}, {$addToSet:{likePosts: postId}})
+            console.log(result1," tung tung sahoor ", result2)
             result.data = "Like added";
             result.status = 201
         } catch (error) {
@@ -190,7 +205,7 @@ export const userDetail =async(id)=>{
             data: ""
         }
         try {
-           const userDetail = await users.find({_id: id})
+            const userDetail = await users.find({_id: id}, {commentedPosts: 1, likePosts : 1, favPosts : 1})
            result.data = userDetail[0];
            result.status = 201
         } catch (error) {

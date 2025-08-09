@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { CiShare1 } from "react-icons/ci";
 import { BsSend } from "react-icons/bs";
+import { addComment, addLike } from '../../Api/api';
 
 
 export const FeedPostCard = ({post}) => {
@@ -10,10 +11,15 @@ export const FeedPostCard = ({post}) => {
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState('');
   
+
+
   const postDate = new Date(post.createdAt).toLocaleString()
 
-  const handleLikeClick = () => {
+  const handleLikeClick = async(postId) => {
+    console.log("loo sambho 2.0: ", postId)
     setIsLiked(!isLiked);
+    const response = await addLike(postId)
+    console.log("loo sambho: ", response)
     setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
   };
 
@@ -25,11 +31,11 @@ export const FeedPostCard = ({post}) => {
     setCommentText(event.target.value);
   };
 
-  const handleCommentSubmit = (event) => {
+  const handleCommentSubmit = async(event, postId) => {
     event.preventDefault();
     if (commentText.trim() !== '') {
-      // Logic for submitting a comment would go here.
-      // For this example, we'll just clear the input field.
+      
+      await addComment(commentText, postId)
       console.log('Submitted comment:', commentText);
       setCommentText('');
     }
@@ -62,7 +68,7 @@ export const FeedPostCard = ({post}) => {
         {/* Interaction Bar */}
         <div className="flex items-center dark:text-white mb-4 border-b border-slate-800 dark:border-white pb-4">
           <button
-            onClick={handleLikeClick}
+            onClick={()=>handleLikeClick(post._id)}
             className={`flex items-center mr-6 focus:outline-none transition-colors duration-200 ${isLiked ? 'text-red-500' : 'hover:text-red-400'}`}
           >
             < FaRegHeart className={`h-6 w-6 mr-1 overflow-hidden ${isLiked ? 'fill-red-500' : ''}`}/>
@@ -72,7 +78,7 @@ export const FeedPostCard = ({post}) => {
             onClick={handleCommentToggle}
             className="flex items-center mr-6 hover:text-slate-500 transition-colors duration-200 focus:outline-none"
           >
-            <FaRegComment className={`h-6 w-6 mr-1 `} />
+            <FaRegComment className={`h-6 w-6 mr-1`} />
             <span className="text-lg">{post.Comments.length}</span>
           </button>
           <button className="flex items-center hover:text-blue-700 transition-colors duration-200 focus:outline-none">
@@ -83,7 +89,7 @@ export const FeedPostCard = ({post}) => {
 
         {/* Comment Section (Conditionally rendered) */}
         
-          <div className={`space-y-4 pr-10  ${showComments? "":"h-0 overflow-hidden"}`}>
+          <div className={`space-y-4  dark:bg-slate-900 ${showComments? "p-10":"h-0 overflow-hidden"}`}>
             {/* Existing Comment */}
               {post.Comments.map((comment)=>{
                 const commentDate = new Date(comment.createdAt).toLocaleString()
@@ -105,7 +111,7 @@ export const FeedPostCard = ({post}) => {
         })}
 
             {/* New Comment Input */}
-            <form onSubmit={handleCommentSubmit} className="flex items-center">
+            <form onSubmit={(e)=>handleCommentSubmit(e, post._id)} className={`flex items-center bg-white dark:bg-slate-900`}>
               <img
                 src="https://placehold.co/36x36/566173/FFFFFF?text=Y"
                 alt="Your Profile"

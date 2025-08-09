@@ -10,7 +10,7 @@ export function DashboardDetail({activitiesData, cardData}){
                 <div className="text-[1rem] text-slate-500">Welcome person, here is the update</div>
             </header>   
 
-            <GridCard cards={cardData} />
+           {cardData?( <GridCard cards={cardData} />): ""}
             <div className="w-full flex gap-5 flex-col md:flex-row">
 
             {activitiesData?.map((activity, id)=>{

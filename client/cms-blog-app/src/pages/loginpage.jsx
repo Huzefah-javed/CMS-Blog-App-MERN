@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { login } from "../Api/api";
+import { AuthContext } from "../App";
 
 export function Login() {
 
+    const {authUser, setAuthUser} = useContext(AuthContext)
     const [form, setForm] = useState({email: "", password: "", role:""})
 
 
     const formSubmitting=async(e)=>{
         e.preventDefault();
-          await login(form)
+         const userDetail = await login(form)
+         setAuthUser(userDetail)
           console.log("form submitted")
     }
     
