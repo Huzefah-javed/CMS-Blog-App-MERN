@@ -8,6 +8,10 @@ export const adminDashboardData =async()=>{
    const result = await api.get("admin/dashboard", {withCredentials: true})
    return result.data;
 }
+export const adminProfileData =async()=>{
+   const result = await api.get("admin/profile", {withCredentials: true})
+   return result.data.message;
+}
 
 export const writerDashboardData =async()=>{
    const result = await api.get("writer/dashboard", {withCredentials: true})
@@ -21,6 +25,42 @@ export const userDashboardData =async()=>{
 export const blogPosts =async()=>{
    const result = await api.get("user/feeds", {withCredentials: true})
    return result.data.message;
+}
+export const pendingUsersData =async()=>{
+   const result = await api.get("admin/pendingUsers", {withCredentials: true})
+   return result.data;
+}
+export const approvePendingUser =async(id)=>{
+   const result = await api.get(`admin/approvingUser/${id}`, {withCredentials: true})
+   return result.data;
+}
+export const declinePendingUser =async(id)=>{
+   const result = await api.get(`admin/decliningUser/${id}`, {withCredentials: true})
+   return result.data;
+}
+export const pendingWritersData =async()=>{
+   const result = await api.get("admin/pendingWriters", {withCredentials: true})
+   return result.data;
+}
+export const approvePendingWriter =async(id)=>{
+   const result = await api.get(`admin/approvingWriter/${id}`, {withCredentials: true})
+   return result.data;
+}
+export const declinePendingWriter =async(id)=>{
+   const result = await api.get(`admin/decliningWriter/${id}`, {withCredentials: true})
+   return result.data;
+}
+export const pendingPostsData =async()=>{
+   const result = await api.get("admin/pendingPosts", {withCredentials: true})
+   return result.data;
+}
+export const approvePendingPosts =async(postId)=>{
+   const result = await api.get(`admin/pendingPosts/${postId}`, {withCredentials: true})
+   return result.data
+}
+export const declinePendingPosts =async(postId)=>{
+const result = await api.get(`admin/decliningPosts/${postId}`, {withCredentials: true})
+   return result.data
 }
 export const userFavPostData =async(postId)=>{
    const result = await api.get(`user/feeds/${postId}`, {withCredentials: true})

@@ -45,7 +45,7 @@ export const pendingUsers =async()=>{
         data: ""
     }
     try {
-        const pendingUsers = await users.find({role: "user", isApprove: false})
+        const pendingUsers = await users.find({role: "user", isApprove: "pending"}, {name: 1, role:1, createdAt:1})
         result.data = pendingUsers
         result.status = 201
     } catch (error) {
@@ -93,8 +93,9 @@ export const adminProfile =async(adminId)=>{
             status: 0,
             data: ""
         }
+        const adminObjId = new mongoose.Types.ObjectId(adminId)
         try {
-           const admin = await users.find({_id : adminId})
+           const admin = await users.find({_id : adminObjId}, {password: 0})
             result.data = admin;
             result.status = 201
         } catch (error) {

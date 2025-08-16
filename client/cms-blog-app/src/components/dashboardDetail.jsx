@@ -1,6 +1,7 @@
 import { IoIosArrowBack } from "react-icons/io";
 import { Activity } from "./Ui/activity";
 import { GridCard } from "./Ui/gridCard";
+import { AccessActivity } from "./Ui/accessActivity";
 
 export function DashboardDetail({activitiesData, cardData}){
     console.log(activitiesData)
@@ -23,6 +24,6 @@ export function DashboardDetail({activitiesData, cardData}){
                 )
             })}
                </div>
-                               
+                     {/* <AccessActivity/>           */}
         </div>)
 }

@@ -1,5 +1,5 @@
 import { approvePost, blogCount, declinePost, newPosts, pendingBlogCount, pendingPosts } from "../model/post.model.js";
-import { adminProfile, approveUser, newUsersJoin, pendingUsers, userCounts } from "../model/user.model.js"
+import { adminProfile, approveUser, declineUser, newUsersJoin, pendingUsers, userCounts } from "../model/user.model.js"
 import { writerCounts, approveWriter, pendingWriters, declineWriter } from "../model/writer.model.js";
 
 
@@ -291,8 +291,7 @@ export const handlePendingPost =async(req, res)=> {
     
     if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
     try {
-         const id = ""
-        const response = await adminProfile(id);
+        const response = await adminProfile(req.user.id);
          if (response.status === 201) {
              res.status(201).json({
              status: 201,
@@ -302,13 +301,13 @@ export const handlePendingPost =async(req, res)=> {
         }else{
             res.status(500).json({
             status: 500,
-            message: "fail to fetch profile data",
+            message: response.data,
                                 })
          }
     } catch (error) {
          res.status(500).json({
             status: 500,
-            message: "fail to fetch profile data",
+            message: error.message,
                                 })
     }
    }

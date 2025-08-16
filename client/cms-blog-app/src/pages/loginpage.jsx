@@ -15,7 +15,7 @@ export function Login() {
           console.log("form submitted")
     }
     
-    // console.log(form)
+    console.log(authUser)
 
 
   return (

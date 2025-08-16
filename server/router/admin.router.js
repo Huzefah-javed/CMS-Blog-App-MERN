@@ -5,14 +5,14 @@ const adminRouter = Router();
     
     adminRouter.get("/dashboard", handleAdminDashboard)
     adminRouter.get("/pendingUsers", handlePendingUser)
-    adminRouter.post("/approvingUser/:id", handleApprovingUser)
-    adminRouter.post("/decliningUser/:id", handleDeclineUser)
+    adminRouter.get("/approvingUser/:id", handleApprovingUser)
+    adminRouter.get("/decliningUser/:id", handleDeclineUser)
     adminRouter.get("/pendingWriters", handlePendingWriter)
-    adminRouter.post("/approvingWriter/:id", handleApprovingWriter)
-    adminRouter.post("/decliningWriter/:id", handleDeclineWriter)
+    adminRouter.get("/approvingWriter/:id", handleApprovingWriter)
+    adminRouter.get("/decliningWriter/:id", handleDeclineWriter)
     adminRouter.get("/pendingPosts", handlePendingPost)
     adminRouter.get("/pendingPosts/:id", handleApprovingPost)
     adminRouter.get("/decliningPosts/:id", handleDecliningPost)
-    adminRouter.get("/profile", handleAdminProfile)  //must check it after JWT implementation
+    adminRouter.get("/profile", handleAdminProfile)  
     
 export default adminRouter;

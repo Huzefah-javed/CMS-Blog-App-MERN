@@ -28,8 +28,8 @@ export const pendingWriters =async()=>{
             data: ""
         }
         try {
-            const pendingWriter = await users.find({role: "writer", isApprove: false})
-            result.data = pendingUsers
+            const pendingWriters = await users.find({role: "writer", isApprove: "pending"})
+            result.data = pendingWriters
             result.status = 201
         } catch (error) {
             result.status = 500
