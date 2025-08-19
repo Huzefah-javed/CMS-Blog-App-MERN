@@ -1,4 +1,4 @@
-import { draftingPost, insertingPost, latestPost, LikeAndCommentOnPost, totalApprovedCount, totalDeclineCount, totalPendingCount, totalPostCounts, updatingPost, writerPosts, writerProfile } from "../model/writer.model.js";
+import { draftingPost, insertingPost, latestPost, LikeAndCommentOnPost, totalApprovedCount, totalDeclineCount, totalPendingCount, totalPostCounts, updatingPost, writerDraftPosts, writerProfile } from "../model/writer.model.js";
 
 export const handleWriterDashboard =async(req, res)=>{
     
@@ -83,7 +83,7 @@ export const handleDraftPost =async(req, res)=> {
         const finalTitle = title.trim();
         const finalPost = post.trim();
 
-        const resInsertPost = await  draftingPost(finalTitle, finalPost, req.user.id)
+        const resInsertPost = await  draftingPost(finalTitle, finalPost, req.user.id, req.user.name)
          if (resInsertPost.status === 201) {
             res.status(201).json({
                 status: 201,
@@ -129,11 +129,11 @@ export const handleEditPost =async(req, res)=>{
     }
 }
 
-export const handlePosts =async (req, res)=>{
+export const handleGetPosts =async (req, res)=>{
     
     if (req.user.role !== "writer")  return res.status(500).send("You are allowed to get this route access")
     try {
-        const resPosts = await writerPosts(req.user.id) // id needs here by jwt
+        const resPosts = await writerDraftPosts(req.user.id) // id needs here by jwt
          if (resPosts.status === 201) {
             res.status(201).json({
                 status: 201,

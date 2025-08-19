@@ -17,6 +17,26 @@ export const writerDashboardData =async()=>{
    const result = await api.get("writer/dashboard", {withCredentials: true})
    return result.data;
 }
+export const writerProfileData =async()=>{
+   const result = await api.get("writer/profile", {withCredentials: true})
+   return result.data.message;
+}
+export const postSubmit =async({title, post})=>{
+   const result = await api.post("writer/createPost",{title, post} ,{withCredentials: true})
+   return result.data;
+}
+export const draftPostSubmit =async({title, post, draftPostId})=>{
+   const result = await api.post("writer/createPost",{title, post, draftPostId} ,{withCredentials: true})
+   return result.data;
+}
+export const getDraftPosts =async()=>{
+   const result = await api.get("writer/getDraftPosts" ,{withCredentials: true})
+   return result.data.message;
+}
+export const postDraft =async({title, post})=>{
+   const result = await api.post("writer/draftPost",{title, post} ,{withCredentials: true})
+   return result.data;
+}
 export const userDashboardData =async()=>{
    const result = await api.get("user/dashboard", {withCredentials: true})
    return result.data.message;

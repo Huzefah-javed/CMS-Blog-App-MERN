@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { blogs, users } from "./schema.model.js"
 
 
@@ -173,7 +174,8 @@ export const insertingPost =async(writerTitle, writerPost, writerCreatorId, writ
     }
     try {
         if (draftPostId) {
-            await blogs.findByIdAndDelete(draftPostId)
+            const objectPostId = new mongoose.Types.ObjectId(draftPostId)
+            await blogs.findByIdAndDelete(objectPostId)
         }
          await blogs.create({
                         title: writerTitle,
@@ -191,16 +193,18 @@ export const insertingPost =async(writerTitle, writerPost, writerCreatorId, writ
     return result;
 }
 
-export const draftingPost =async(writerTitle, writerPost, writerCreatorId)=>{
+export const draftingPost =async(writerTitle, writerPost, writerCreatorId, writerName)=>{
     let result = {
         status: 0,
         data: ""
     }
     try {
+        const objectWriterId = new mongoose.Types.ObjectId(writerCreatorId)
          await blogs.create({
                         title: writerTitle,
                         post: writerPost, 
-                        creatorId: writerCreatorId,
+                        creatorId: objectWriterId,
+                        creatorName: writerName,
                         status: "drafted"
                            })
         result.data = "post drafted successfully"
@@ -228,13 +232,13 @@ export const updatingPost =async(updatedTitle, updatedPost, id)=>{
     return result;
 }
 
-export const writerPosts =async(id)=>{
+export const writerDraftPosts =async(id)=>{
      let result = {
         status: 0,
         data: ""
     }
     try {
-        const posts = await blogs.find({creatorId: id})
+        const posts = await blogs.find({creatorId: id, status:"drafted"})
          result.data = posts
         result.status = 201
     } catch (error) {

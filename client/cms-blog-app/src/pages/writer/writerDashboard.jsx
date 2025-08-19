@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { DashboardDetail } from "../components/dashboardDetail";
-import { SideMenuDashboard } from "../components/sideMenu";
-import { writerDashboardData } from "../Api/api";
+import { DashboardDetail } from "../../components/dashboardDetail";
+import { SideMenuDashboard } from "../../components/sideMenu";
+import { writerDashboardData } from "../../Api/api";
 
 export function WriterDashboard(){
 

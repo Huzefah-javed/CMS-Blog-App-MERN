@@ -5,7 +5,7 @@ import { BsSend } from "react-icons/bs";
 import { addComment, addLike } from '../../Api/api';
 
 
-export const FeedPostCard = ({post}) => {
+export const FeedPostCard = ({post, setEditMode, setDraftPost}) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(28);
   const [showComments, setShowComments] = useState(false);
@@ -40,7 +40,14 @@ export const FeedPostCard = ({post}) => {
       setCommentText('');
     }
   };
-  
+
+  const handleEditDraftPost =(id, post, title)=>{
+    setDraftPost({draftPostId:id, post:post, title:title})
+    setEditMode(false)
+  }
+
+
+
   return (
       <div className="bg-white rounded-2xl p-6 mb-12 shadow-2xl dark:bg-[#ffffff10]">
 
@@ -49,7 +56,7 @@ export const FeedPostCard = ({post}) => {
           <div className="flex items-center">
             <img 
               src={`https://placehold.co/40x40/566173/FFFFFF?text=${post.creatorName.slice(0,1)}`}
-              alt="Alex Rodriguez"
+              alt="N"
               className="rounded-full mr-3 border-2 border-slate-700"
             />
             <div>
@@ -65,8 +72,8 @@ export const FeedPostCard = ({post}) => {
         <p className="dark:text-white leading-relaxed mb-4">{post.post}</p>
 
 
-        {/* Interaction Bar */}
-        <div className="flex items-center dark:text-white mb-4 border-b border-slate-800 dark:border-white pb-4">
+        {post.status === "approved"?(
+          <div className="flex items-center dark:text-white mb-4 border-b border-slate-800 dark:border-white pb-4">
           <button
             onClick={()=>handleLikeClick(post._id)}
             className={`flex items-center mr-6 focus:outline-none transition-colors duration-200 ${isLiked ? 'text-red-500' : 'hover:text-red-400'}`}
@@ -77,7 +84,7 @@ export const FeedPostCard = ({post}) => {
           <button
             onClick={handleCommentToggle}
             className="flex items-center mr-6 hover:text-slate-500 transition-colors duration-200 focus:outline-none"
-          >
+            >
             <FaRegComment className={`h-6 w-6 mr-1`} />
             <span className="text-lg">{post.Comments.length}</span>
           </button>
@@ -85,7 +92,21 @@ export const FeedPostCard = ({post}) => {
             <CiShare1 className="h-6 w-6 mr-1" />
             <span className="text-lg">Share</span>
           </button>
-        </div>
+        </div>):(<div className='flex gap-4'>
+          <button
+                  onClick={() => onApprove(_id)}
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-lg text-xs"
+                >
+                  Publish
+                </button>
+                <button
+                  onClick={() => handleEditDraftPost(post._id, post.post,post.title)}
+                className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-3 rounded-lg text-xs"
+                >
+                  Edit
+                </button> 
+        </div>)
+          }
 
         {/* Comment Section (Conditionally rendered) */}
         

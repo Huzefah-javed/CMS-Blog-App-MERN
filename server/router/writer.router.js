@@ -1,5 +1,5 @@
 import {Router} from "express"
-import { handleCreatePost, handleDraftPost, handleEditPost, handlePosts, handleWriterDashboard, handleWriterProfile } from "../controller/writer.controller.js";
+import { handleCreatePost, handleDraftPost, handleEditPost, handleGetPosts, handleWriterDashboard, handleWriterProfile } from "../controller/writer.controller.js";
 
 const writerRouter = Router();
     
@@ -7,7 +7,7 @@ const writerRouter = Router();
     writerRouter.post("/createPost", handleCreatePost)
     writerRouter.post("/draftPost", handleDraftPost)
     writerRouter.get("/edit/:id", handleEditPost)
-    writerRouter.get("/posts", handlePosts)
+    writerRouter.get("/getDraftPosts", handleGetPosts)
     writerRouter.get("/profile", handleWriterProfile)
 
 export default writerRouter;
