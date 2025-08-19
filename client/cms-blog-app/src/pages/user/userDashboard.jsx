@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { DashboardDetail } from "../components/dashboardDetail";
-import { SideMenuDashboard } from "../components/sideMenu";
-import { userDashboardData, userFavPostData } from "../Api/api";
-import { AccessActivity } from "../components/Ui/accessActivity";
+import { DashboardDetail } from "../../components/dashboardDetail";
+import { SideMenuDashboard } from "../../components/sideMenu";
+import { userDashboardData, userFavPostData } from "../../Api/api";
+import { AccessActivity } from "../../components/Ui/accessActivity";
 
 export function UserDashboard(){
     
