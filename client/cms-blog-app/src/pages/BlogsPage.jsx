@@ -18,7 +18,7 @@ export const BlogPage =()=>{
     console.log(apiData)
 
     return(
-        <div className="flex">
+        <div className="flex relative">
         <SideMenuDashboard/>
         <PostingInterface apiData={apiData}/>
         </div>

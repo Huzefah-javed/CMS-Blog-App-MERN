@@ -3,13 +3,13 @@ import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { CiShare1 } from "react-icons/ci";
 import { BsSend } from "react-icons/bs";
 import { addComment, addLike } from '../../Api/api';
+import { CommentBox } from './commentbox';
 
 
 export const FeedPostCard = ({post, setEditMode, setDraftPost}) => {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(28);
-  const [showComments, setShowComments] = useState(false);
-  const [commentText, setCommentText] = useState('');
+  const [showComments, setShowComments] = useState(true);
   
 
 
@@ -24,22 +24,10 @@ export const FeedPostCard = ({post, setEditMode, setDraftPost}) => {
   };
 
   const handleCommentToggle = () => {
-    setShowComments(!showComments);
+    setShowComments(false);
   };
 
-  const handleCommentChange = (event) => {
-    setCommentText(event.target.value);
-  };
-
-  const handleCommentSubmit = async(event, postId) => {
-    event.preventDefault();
-    if (commentText.trim() !== '') {
-      
-      await addComment(commentText, postId)
-      console.log('Submitted comment:', commentText);
-      setCommentText('');
-    }
-  };
+  
 
   const handleEditDraftPost =(id, post, title)=>{
     setDraftPost({draftPostId:id, post:post, title:title})
@@ -107,52 +95,9 @@ export const FeedPostCard = ({post, setEditMode, setDraftPost}) => {
                 </button> 
         </div>)
           }
+<CommentBox Comments={post.Comments} showComments={showComments} setShowComments={setShowComments} postId={post._id}/>
 
-        {/* Comment Section (Conditionally rendered) */}
-        
-          <div className={`space-y-4  dark:bg-slate-900 ${showComments? "p-10":"h-0 overflow-hidden"}`}>
-            {/* Existing Comment */}
-              {post.Comments.map((comment)=>{
-                const commentDate = new Date(comment.createdAt).toLocaleString()
-                return(
-            <div className="flex items-start border-[1px] border-slate-700 p-4 rounded-2xl">
 
-                  <img
-                  src={`https://placehold.co/36x36/566173/FFFFFF?text=${comment.name.slice(0,1)}`}
-                  alt={comment.name}
-                  className="rounded-full mr-3 border-2 border-slate-700"
-                  />
-              <div className="flex-1">
-                <p className="font-semibold text-sm dark:text-white">{comment.name}<span className="text-xs px-4 text-slate-400 font-normal">{commentDate}</span></p>
-                <p className="text-sm dark:text-white mt-1">{comment.comment}</p>
-               
-              </div>
-            </div>
-          )
-        })}
-
-            {/* New Comment Input */}
-            <form onSubmit={(e)=>handleCommentSubmit(e, post._id)} className={`flex items-center bg-white dark:bg-slate-900`}>
-              <img
-                src="https://placehold.co/36x36/566173/FFFFFF?text=Y"
-                alt="Your Profile"
-                className="rounded-full mr-3 border-2 border-slate-700"
-              />
-              <div className="relative flex-1">
-                <input
-                  type="text"
-                  value={commentText}
-                  onChange={handleCommentChange}
-                  placeholder="Write a comment..."
-                  className="w-full dark:bg-slate-800 dark:text-white border-slate-900 border-[1px] rounded-full py-2 px-4 pr-12 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
-                />
-                <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-blue-500 hover:text-blue-400 transition-colors duration-200">
-                  <BsSend className="h-6 w-6" />
-                </button>
-              </div>
-            </form>
-          </div>
-        
       </div>
   );
 };

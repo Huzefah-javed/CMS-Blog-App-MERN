@@ -5,6 +5,8 @@ import { WriterCreatePost } from "./pages/writer/writerCreatePost";
 import { Login } from "./pages/loginpage";
 import { WriterDraftPosts } from "./pages/writer/writerDraftPosts";
 import { WriterProfile } from "./pages/writer/writerProfile";
+import { WriterDashboard } from "./pages/writer/writerDashboard";
+import { BlogPage } from "./pages/BlogsPage";
 
 export const AuthContext = createContext({})
 function App(){
@@ -21,13 +23,13 @@ const [authUser, setAuthUser] = useState({})
     {/* <AdminDashboard/> */}
     {/* <WriterDashboard/> */}
     {/* <FeedPostCard/> */}
-    {/* <BlogPage/> */}
+    <BlogPage/>
     {/* <PendingUsers/> */}
     {/* <PendingWriters/> */}
     {/* <AdminProfile/> */}
     {/* <WriterCreatePost/> */}
     {/* <WriterDraftPosts/> */}
-    <WriterProfile/>
+    {/* <WriterProfile/> */}
     {/* <PendingPosts/> */}
     </AuthContext.Provider>
   </>
