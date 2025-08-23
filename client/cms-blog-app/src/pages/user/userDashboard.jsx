@@ -53,8 +53,7 @@ const [favPosts, setFavPosts] = useState([])
     const TotalFavoritePosts = apiData?.favPosts?.length
     const cardsData = [{TotalComments}, {TotalLikePosts}, {TotalFavoritePosts}]
    
-    return(<div className="w-full flex gap-0">
-          <SideMenuDashboard />  
+    return(<>
             <DashboardDetail activitiesData={[favPosts]} cardData={cardsData}/>
-        </div>)
+        </>)
 }

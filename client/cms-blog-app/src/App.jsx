@@ -16,6 +16,7 @@ import { PendingWriters } from "./pages/admin/pendingWriters";
 import { AdminLayout } from "./layouts/adminLayout";
 import { WriterLayout } from "./layouts/writerLayout";
 import { UserProfile } from "./pages/user/userProfile";
+import { UserLayout } from "./layouts/userLayout";
 
 export const AuthContext = createContext({})
 function App(){
@@ -35,6 +36,7 @@ const roleBasedRoute =()=>{
   if (authUser.role === "user") {
     return  {
             path: "/user",
+            element: <UserLayout/>,
             children:[
               {
                 path: "dashboard",

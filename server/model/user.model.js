@@ -127,8 +127,9 @@ export const gettingUserProfile =async(id)=>{
             data: ""
         }
         try {
-           const user = await users.find({_id : id})
-            result.data = user[0];
+            const objectId = new mongoose.Types.ObjectId(id)
+           const user = await users.find({_id : objectId}, {password:0})
+            result.data = user;
             result.status = 201
         } catch (error) {
             result.status = 500

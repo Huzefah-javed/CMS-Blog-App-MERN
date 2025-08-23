@@ -37,14 +37,14 @@ export function CommentBox({Comments, showComments, setShowComments, postId}){
                       {Comments.map((comment)=>{
                           const commentDate = new Date(comment.createdAt).toLocaleString()
                         return(
-                    <div key={comment._id} className="flex items-start border-[1px] bg-white dark:bg-slate-900 border-slate-700 p-4 rounded-2xl">
+                    <div key={comment._id} className="flex max-h-fit items-start border-[1px] bg-white dark:bg-slate-900 border-slate-700 p-4 rounded-2xl">
         
                           <img
                           src={`https://placehold.co/36x36/566173/FFFFFF?text=${comment.name.slice(0,1)}`}
                           alt={comment.name}
                           className="rounded-full mr-3 border-2 border-slate-700"
                           />
-                      <div className="flex-1">
+                      <div className="flex-1 min-h-fit overflow-hidden">
                         <p className="font-semibold text-sm dark:text-white">{comment.name}<span className="text-xs px-4 text-slate-400 font-normal">{commentDate}</span></p>
                         <p className="text-sm dark:text-white mt-1">{comment.comment}</p>
                        

@@ -14,9 +14,10 @@ export const UserProfile =()=>{
                      async function fetch(){
                       const data =  await userProfileData()
                      setApiData(data)
-                     }
-                     fetch()
-                    },[])
+                    }
+                    fetch()
+                  },[])
+                  console.log(apiData)               
     
                     if (apiData.length===0) {
                       return <div className="w-full flex gap-0">
@@ -25,7 +26,6 @@ export const UserProfile =()=>{
                         
                     }
             if (apiData.length > 0) {
-                
                 return(<>
     
             <ProfilePage profileData={apiData[0]} />

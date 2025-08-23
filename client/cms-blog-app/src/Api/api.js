@@ -14,7 +14,7 @@ export const adminProfileData =async()=>{
 }
 export const userProfileData =async()=>{
    const result = await api.get("user/profile", {withCredentials: true})
-   return result.data;
+   return result.data.message;
 }
 
 export const writerDashboardData =async()=>{
