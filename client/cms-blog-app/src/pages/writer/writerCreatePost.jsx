@@ -22,11 +22,9 @@ export function WriterCreatePost(){
   }
 
   return(<>
-      <div className="w-full flex gap-0">
-      <SideMenuDashboard/>
+      
       <div className="min-h-screen w-full flex-1/2 flex items-center justify-center bg-[#f4f4f4] dark:bg-slate-800 px-4 py-8">
       <CreatePost setForm={setForm} form={form} formSubmit={handleFormSubmit} formDraft={handlePostDraft}/>
-      </div>
       </div>
         </>)
 }

@@ -20,7 +20,7 @@ export function CreatePost({setForm, form, formSubmit, formDraft , titleVal, pos
             <input
               type="text"
               id="title"
-              value={titleVal.length === 0? "": titleVal}
+              value={titleVal? "": titleVal}
               placeholder=" "
               onChange={(e)=>setForm({...form, title: e.target.value})}
               className="peer w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-transparent px-4 py-3 text-slate-900 dark:text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -41,7 +41,7 @@ export function CreatePost({setForm, form, formSubmit, formDraft , titleVal, pos
               id="content"
               rows="8"
               placeholder=" "
-              value={postVal.length === 0? "": postVal}
+              value={postVal? "": postVal}
               onChange={(e)=>setForm({...form, post: e.target.value})}
               className="peer w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-transparent p-4 text-slate-900 dark:text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"
             />

@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react"
-import { writerProfileData } from "../../Api/api"
-import { SideMenuDashboard } from "../../components/sideMenu"
+
+import { useState } from "react"
+import { userProfileData } from "../../Api/api"
+import { useEffect } from "react"
 import ProfilePage from "../../components/profile"
 
-export const WriterProfile = ()=>{
-
-     const [apiData, setApiData] = useState([])
+export const UserProfile =()=>{
+ 
+    
+            
+                const [apiData, setApiData] = useState([])
                 
                     useEffect(()=>{
                      async function fetch(){
-                      const data =  await writerProfileData()
+                      const data =  await userProfileData()
                      setApiData(data)
                      }
                      fetch()

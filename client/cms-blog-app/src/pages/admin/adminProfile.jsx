@@ -27,10 +27,7 @@ export const AdminProfile =()=>{
             
             return(<>
 
-            <div className="w-full flex gap-0">
-        <SideMenuDashboard/>
         <ProfilePage profileData={apiData[0]} />
-        </div>
     
         </>)
 }

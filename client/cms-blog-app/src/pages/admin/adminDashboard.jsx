@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { DashboardDetail } from "../components/dashboardDetail";
-import { SideMenuDashboard } from "../components/sideMenu";
-import { adminDashboardData } from "../Api/api.js";
+import { DashboardDetail } from "../../components/dashboardDetail";
+import { adminDashboardData } from "../../Api/api";
 
 export function AdminDashboard(){
 
@@ -20,8 +19,8 @@ const [apiData, setApiData] = useState("")
     const userActivities = apiData.latestUserJoin
     const cardsData = apiData.cardData
 
-    return(<div className="w-full flex gap-0">
-          <SideMenuDashboard />  
+    return(  <>
             <DashboardDetail activitiesData={[postActivities, userActivities]} cardData={cardsData}/>
-        </div>)
+    </>
+        )
 }

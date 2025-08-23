@@ -31,14 +31,13 @@ export const WriterDraftPosts = () => {
         console.log(draftPost)
     
         return(
-            <div className="flex">
+            <div className="flex flex-1/2">
                 <div hidden={editMode} className="h-full w-full absolute bg-[#00000067] backdrop-blur-[4px] z-10 flex justify-center items-center">
                     <span onClick={()=>setEditMode(true)} className="bg-white p-2 absolute right-2 top-2">
                         <IoMdClose/>
                     </span>
                     <CreatePost formSubmit={handleDraftPostPublish} setForm={setDraftPost} form={draftPost} titleVal={draftPost.title} postVal={draftPost.post} isDraftPost={true}/>
                 </div>
-            <SideMenuDashboard/>
             <PostingInterface apiData={apiData} setEditMode={setEditMode} setDraftPost={setDraftPost} isDraftPost={true}/>
             </div>
         )

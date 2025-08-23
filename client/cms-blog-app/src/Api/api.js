@@ -12,6 +12,10 @@ export const adminProfileData =async()=>{
    const result = await api.get("admin/profile", {withCredentials: true})
    return result.data.message;
 }
+export const userProfileData =async()=>{
+   const result = await api.get("user/profile", {withCredentials: true})
+   return result.data;
+}
 
 export const writerDashboardData =async()=>{
    const result = await api.get("writer/dashboard", {withCredentials: true})

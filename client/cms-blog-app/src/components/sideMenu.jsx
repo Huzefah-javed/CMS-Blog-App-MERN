@@ -28,10 +28,10 @@ const personData = useContext(AuthContext)
                 </menu>
 
                 <section className=" border-b border-slate-700 flex gap-2 p-2">
-                  <div className="size-12 rounded-3xl text-white bg-black flex justify-center items-center">H</div>
+                  <div className="size-12 rounded-3xl text-white bg-black flex justify-center items-center">{personData.authUser.name.slice(0,1)}</div>
                     <div hidden={menuToggle} className="flex flex-col">
-                    <span className="text-[1rem] font-bold dark:text-white">{personData.name}</span>
-                    <span className="text-[0.75rem] font-light dark:text-white">{personData.role}</span>
+                    <span className="text-[1rem] font-bold dark:text-white">{personData.authUser.name}</span>
+                    <span className="text-[0.75rem] font-light dark:text-white">{personData.authUser.role}</span>
                     </div>
                 </section>
             </div>   

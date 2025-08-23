@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
-import { AccessActivity } from "../components/Ui/accessActivity"
-import { SideMenuDashboard } from "../components/sideMenu"
-import { approvePendingUser, declinePendingUser, pendingUsersData } from "../Api/api"
+import { AccessActivity } from "../../components/Ui/accessActivity"
+import { approvePendingUser, declinePendingUser, pendingUsersData } from "../../Api/api"
 
 export const PendingUsers =()=>{
 
@@ -18,8 +17,7 @@ export const PendingUsers =()=>{
         // console.log(apiData)
         
 
-    return(<div className="w-full flex gap-0">
-        <SideMenuDashboard/>
+    return(<>
         <AccessActivity
                  activities={apiData.pendingUsers}
                  heading={`Total pending Users ${apiData.totalPendingUsers}`}
@@ -28,5 +26,5 @@ export const PendingUsers =()=>{
                 />
         
     
-            </div>)
+            </>)
 }

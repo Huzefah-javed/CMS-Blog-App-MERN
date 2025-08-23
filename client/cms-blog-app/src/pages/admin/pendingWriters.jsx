@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
-import { AccessActivity } from "../components/Ui/accessActivity"
-import { SideMenuDashboard } from "../components/sideMenu"
-import { approvePendingWriter, declinePendingWriter, pendingWritersData } from "../Api/api"
+import { AccessActivity } from "../../components/Ui/accessActivity"
+
+import { approvePendingWriter, declinePendingWriter, pendingWritersData } from "../../Api/api"
 
 export const PendingWriters =()=>{
 
@@ -18,8 +18,7 @@ export const PendingWriters =()=>{
         // console.log(apiData)
         
 
-    return(<div className="w-full flex gap-0">
-        <SideMenuDashboard/>
+    return(<>
         <AccessActivity
          activities={apiData.pendingWriters} 
          heading={`Total pending Writers ${apiData.totalPendingWriters}`}
@@ -28,5 +27,5 @@ export const PendingWriters =()=>{
          />
         
     
-            </div>)
+            </>)
 }

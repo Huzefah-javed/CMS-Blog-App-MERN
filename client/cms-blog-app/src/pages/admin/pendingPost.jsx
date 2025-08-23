@@ -20,14 +20,14 @@ export const PendingPosts =()=>{
         
         console.log("personData, ", personData)
 
-    return(<div className="w-full flex gap-0">
-        <SideMenuDashboard/>
+    return( <>
         <AccessActivity activities={apiData.pendingPosts}
                         heading={`Total pending posts - ${apiData.totalPendingPosts}`}
                         approval={approvePendingPosts}
                         decline={declinePendingPosts}
                         />
         
+                        </>
     
-            </div>)
+            )
 }

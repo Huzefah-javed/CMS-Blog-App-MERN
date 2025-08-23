@@ -20,8 +20,7 @@ const [apiData, setApiData] = useState("")
     const userActivities = apiData.latestUserJoin
     const cardsData = apiData.cardData
 
-    return(<div className="w-full flex gap-0">
-          <SideMenuDashboard />  
+    return(<> 
             <DashboardDetail activitiesData={[postActivities, userActivities]} cardData={cardsData}/>
-        </div>)
+        </>)
 }
