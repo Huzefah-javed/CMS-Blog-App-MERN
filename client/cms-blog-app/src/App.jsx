@@ -17,6 +17,7 @@ import { AdminLayout } from "./layouts/adminLayout";
 import { WriterLayout } from "./layouts/writerLayout";
 import { UserProfile } from "./pages/user/userProfile";
 import { UserLayout } from "./layouts/userLayout";
+import { Registration } from "./pages/registration";
 
 export const AuthContext = createContext({})
 function App(){
@@ -81,6 +82,10 @@ const roleBasedRoute =()=>{
                  path: "feeds",
                 element: <BlogPage/>
               },
+              {
+                 path: "logout",
+                element: <Login/>
+              },
             ]
           }
   }else if(authUser.role === "writer"){
@@ -123,8 +128,12 @@ const roleBasedRoute =()=>{
 const route = roleBasedRoute()
 const router = createBrowserRouter([
   {
-     path: "/",
-      element: Object.keys(authUser).length === 0?  <Login/>: <Navigate to={`/${authUser.role}/dashboard`} />,
+  path: "/",
+  element: Object.keys(authUser).length === 0?  <Login/>: <Navigate to={`/${authUser.role}/dashboard`} />,
+    },
+  {
+  path: "/registration",
+  element: Object.keys(authUser).length === 0?  <Registration/>: <Navigate to={`/${authUser.role}/dashboard`} />,
     },
     route
 ])

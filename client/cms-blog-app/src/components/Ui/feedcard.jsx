@@ -1,25 +1,33 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import { CiShare1 } from "react-icons/ci";
 import { BsSend } from "react-icons/bs";
-import { addComment, addLike } from '../../Api/api';
+import { addComment, addLike, declinePendingPosts, DraftingPost, draftPostSubmit } from '../../Api/api';
 import { CommentBox } from './commentbox';
+import { AuthContext } from '../../App';
 
 
 export const FeedPostCard = ({post, setEditMode, setDraftPost}) => {
+
+  const postDate = new Date(post.createdAt).toLocaleString()
+  const personData = useContext(AuthContext)
+
   const [isLiked, setIsLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(28);
   const [showComments, setShowComments] = useState(true);
   
 
-
-  const postDate = new Date(post.createdAt).toLocaleString()
+const handlePostDecline =async(id)=>{
+   const response = await declinePendingPosts(id)
+   console.log(response)
+}
+const handlePostDraft =async(id)=>{
+   const response = await DraftingPost(id)
+   console.log(response)
+}
 
   const handleLikeClick = async(postId) => {
-    console.log("loo sambho 2.0: ", postId)
     setIsLiked(!isLiked);
     const response = await addLike(postId)
-    console.log("loo sambho: ", response)
     setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
   };
 
@@ -27,9 +35,12 @@ export const FeedPostCard = ({post, setEditMode, setDraftPost}) => {
     setShowComments(false);
   };
 
-  
+  const onApprove=async(id)=>{
+    await draftPostSubmit(id)
+  }
 
   const handleEditDraftPost =(id, post, title)=>{
+    console.log(id, post, title)
     setDraftPost({draftPostId:id, post:post, title:title})
     setEditMode(false)
   }
@@ -64,11 +75,11 @@ export const FeedPostCard = ({post, setEditMode, setDraftPost}) => {
           <div className="flex items-center dark:text-white mb-4 border-b border-slate-800 dark:border-white pb-4">
           <button
             onClick={()=>handleLikeClick(post._id)}
-            className={`flex items-center mr-6 focus:outline-none transition-colors duration-200 ${isLiked ? 'text-red-500' : 'hover:text-red-400'}`}
+            className={`flex items-center mr-6`}
           >
-            < FaRegHeart className={`h-6 w-6 mr-1 overflow-hidden ${isLiked ? 'fill-red-500' : ''}`}/>
+           {post?.likes?.includes(personData.authUser.id) || isLiked? <FaHeart className={`h-6 w-6 mr-1 text-red-500`}/>:< FaRegHeart className={`h-6 w-6 mr-1`}/>}
             <span className="text-lg">{post.likes.length}</span>
-          </button>
+          </button> 
           <button
             onClick={handleCommentToggle}
             className="flex items-center mr-6 hover:text-slate-500 transition-colors duration-200 focus:outline-none"
@@ -82,7 +93,7 @@ export const FeedPostCard = ({post, setEditMode, setDraftPost}) => {
           </button>
         </div>):(<div className='flex gap-4'>
           <button
-                  onClick={() => onApprove(_id)}
+                  onClick={() => onApprove(post._id)}
                   className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-lg text-xs"
                 >
                   Publish
@@ -95,7 +106,28 @@ export const FeedPostCard = ({post, setEditMode, setDraftPost}) => {
                 </button> 
         </div>)
           }
-<CommentBox Comments={post.Comments} showComments={showComments} setShowComments={setShowComments} postId={post._id}/>
+          {
+            personData?.authUser?.role === "admin"? (
+                <div className="flex items-center justify-between bg-gray-800 text-gray-200 p-3 rounded-lg shadow-md">
+                  <span className="text-sm font-medium">Change status:</span>
+                  <span className="space-x-2">
+                    <button onClick={()=>handlePostDecline(post._id)} className="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded-md text-sm transition-colors">
+                      Decline
+                    </button>
+                    <button onClick={()=>handlePostDraft(post._id)} className="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded-md text-sm transition-colors">
+                      Draft
+                    </button>
+                  </span>
+                </div>
+
+                   ):""
+          }
+     <CommentBox
+         Comments={post.Comments}
+         showComments={showComments} 
+         setShowComments={setShowComments} 
+         postId={post._id}
+         />
 
 
       </div>

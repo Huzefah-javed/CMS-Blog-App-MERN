@@ -37,7 +37,7 @@ export const WriterLayout =()=>{
 
     return(<>
             
-             <div className="w-full flex gap-0 relative">
+             <div className="relative w-full flex gap-0">
                     <SideMenuDashboard menus={menu}/>
                     <Outlet />
              </div>

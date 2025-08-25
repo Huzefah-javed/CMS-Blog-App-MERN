@@ -222,9 +222,10 @@ export const userAddToFav =async(postId, userProfileId)=>{
             status: 0,
             data: ""
         }
+
         try {
-            
-            await users.findOneAndUpdate({_id:userProfileId}, {$push:{favPosts: postId}})
+            const userObjectId = new mongoose.Types.objectId(userProfileId)
+            await users.findOneAndUpdate({_id:userObjectId}, {$push:{favPosts: postId}})
             result.data = "Added to favorite";
             result.status = 201
         } catch (error) {

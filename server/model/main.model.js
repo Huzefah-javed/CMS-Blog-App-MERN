@@ -9,7 +9,7 @@ export const registration =async(name, email, password, role)=>{
                   };
     try {
         const adminUser =  new users({name, email, password, role})
-         await adminUser.save()
+        await adminUser.save()
         result.status = 201;
         result.message = "Added successfully"
     } catch (error) {
@@ -28,6 +28,7 @@ export const loginConfirmation =async(inputEmail, inputPassword, inputRole)=>{
         const profile = await users.find({email: inputEmail, role: inputRole})
         const isPassCorrect =await argon2.verify(profile[0].password, inputPassword)
         if (profile.length===1 && isPassCorrect) {
+            console.log(profile)
             result.status = 201;
             result.data = profile[0]
             

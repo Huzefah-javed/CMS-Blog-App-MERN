@@ -41,13 +41,17 @@ export const postDraft =async({title, post})=>{
    const result = await api.post("writer/draftPost",{title, post} ,{withCredentials: true})
    return result.data;
 }
+export const DraftingPost =async(id)=>{
+   const result = await api.post("admin/draftingPost",{postId: id} ,{withCredentials: true})
+   return result.data;
+}
 export const userDashboardData =async()=>{
    const result = await api.get("user/dashboard", {withCredentials: true})
    return result.data.message;
 }
 
 export const blogPosts =async()=>{
-   const result = await api.get("user/feeds", {withCredentials: true})
+   const result = await api.get("/feeds", {withCredentials: true})
    return result.data.message;
 }
 export const pendingUsersData =async()=>{
@@ -92,21 +96,27 @@ export const userFavPostData =async(postId)=>{
    return result.data;
 }
 export const addLike =async(id)=>{
-   const result = await api.post("user/addLike", {postId: id}, {withCredentials: true})
+   console.log("check id ",id)
+   const result = await api.post("/addLike", {postId: id}, {withCredentials: true})
+   console.log(result)
    return result.data;
 }
 export const addComment =async(userComment, id)=>{
-   const result = await api.post("user/addComment", {comment: userComment,postId: id}, {withCredentials: true})
+   const result = await api.post("/addComment", {comment: userComment,postId: id}, {withCredentials: true})
    return result.data;
 }
 
 export const login =async(form)=> {
    const result = await api.post("/login", form, {withCredentials: true})
-   console.log(result.data.personDetail)
+   console.log("aaaaaahhhhhh ",result.data)
    return result.data.personDetail
 }
 
 export const registration =async(form)=> {
    const result = await api.post("/userRegistration", form, {withCredentials: true})
    console.log(result.data)
+}
+export const logout =async()=> {
+   const result = await api.get("/logout", {withCredentials: true})
+   return result.data
 }

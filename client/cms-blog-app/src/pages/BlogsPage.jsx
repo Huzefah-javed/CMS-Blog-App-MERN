@@ -15,7 +15,6 @@ export const BlogPage =()=>{
          }
          fetch()
         },[])
-    console.log(apiData)
 
     return(<>
         <PostingInterface apiData={apiData}/>

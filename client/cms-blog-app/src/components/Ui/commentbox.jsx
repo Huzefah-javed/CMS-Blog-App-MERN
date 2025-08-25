@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { addComment } from "../../Api/api";
 import { IoMdClose } from "react-icons/io";
 import { BsSend } from "react-icons/bs";
+import { AuthContext } from "../../App";
 
 export function CommentBox({Comments, showComments, setShowComments, postId}){
 
+
+    const {authUser, setAuthUser} = useContext(AuthContext)
      const [commentText, setCommentText] = useState('');
 
 
@@ -16,19 +19,17 @@ export function CommentBox({Comments, showComments, setShowComments, postId}){
     event.preventDefault();
     if (commentText.trim() !== '') {      
       await addComment(commentText, postId)
-      console.log('Submitted comment:', commentText);
       setCommentText('');
     }
   };
 
-  console.log(commentText)
 
-    return(<div hidden={showComments} className="h-full w-full absolute top-0 left-0 bg-[#00000067] backdrop-blur-[4px] z-10">
+    return(<div hidden={showComments} className="h-full w-full absolute top-0 left-0 bg-white dark:bg-slate-800 z-10">
         <div className="h-dvh sticky top-0 left-0 flex flex-col justify-between gap-8 overflow-y-scroll">
 
         <span className="w-full p-4 absolute right-2 top-2 flex justify-between items-center">
-                                <div className="text-white font-extrabold text-4xl">Comment section </div>
-                               <div className="bg-white p-2" onClick={()=>setShowComments(true)}><IoMdClose/></div>
+                                <div className="dark:text-white font-extrabold text-4xl">Comment section </div>
+                               <div className="bg-black text-white dark:text-black dark:bg-white p-2" onClick={()=>setShowComments(true)}><IoMdClose/></div>
         </span>
 
                     {/* Existing Comment */}
@@ -46,6 +47,7 @@ export function CommentBox({Comments, showComments, setShowComments, postId}){
                           />
                       <div className="flex-1 min-h-fit overflow-hidden">
                         <p className="font-semibold text-sm dark:text-white">{comment.name}<span className="text-xs px-4 text-slate-400 font-normal">{commentDate}</span></p>
+                        <p className="font-semibold text-sm dark:text-white">{}</p>
                         <p className="text-sm dark:text-white mt-1">{comment.comment}</p>
                        
                       </div>
@@ -55,9 +57,9 @@ export function CommentBox({Comments, showComments, setShowComments, postId}){
                 </div>
         
                     {/* New Comment Input */}
-                    <form onSubmit={(e)=>handleCommentSubmit(e)} className={`w-full sticky bottom-0 bg-white dark:bg-slate-800 p-4 flex items-center`}>
+                    <form onSubmit={(e)=>handleCommentSubmit(e)} className={`w-full sticky bottom-0 bg-white dark:bg-slate-900 p-4 flex items-center`}>
                       <img
-                        src="https://placehold.co/36x36/566173/FFFFFF?text=Y"
+                        src={`https://placehold.co/36x36/566173/FFFFFF?text=${authUser?.name.slice(0,1)}`}
                         alt="Your Profile"
                         className="rounded-full mr-3 border-2 border-slate-700"
                       />

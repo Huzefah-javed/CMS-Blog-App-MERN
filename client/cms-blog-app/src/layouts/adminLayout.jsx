@@ -4,7 +4,7 @@ import { SideMenuDashboard } from "../components/sideMenu"
 import { MdSpaceDashboard } from "react-icons/md";
 
 import { FaUser, FaFileAlt, FaPen, FaUserCircle } from "react-icons/fa";
-import { CgFeed } from "react-icons/cg";
+import { CgFeed, CgLogOut } from "react-icons/cg";
 
 export const AdminLayout =()=>{
 
@@ -40,6 +40,7 @@ const menu = [
     navigateTo: "profile",
     icon: <FaUserCircle className="text-[1.2rem] group-hover:text-[1.3rem] transition-all ease-in-out duration-100" />
   },
+  
 ];
 
 

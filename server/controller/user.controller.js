@@ -17,7 +17,6 @@ export const handleUserDashboard =async(req, res)=>{
 }
 
 export const handleUserFeed =async(req, res)=>{
-    if (req.user.role !== "user") return res.status(500).send("You are allowed to get this route access")
         try {
             const {skip} = req.query
             const resFeed = await gettingFeed(skip)
@@ -50,7 +49,6 @@ export const handleUserProfile =async(req, res)=>{
 }
 
 export const handleUserPostDetail =async(req, res)=>{
-    if (req.user.role !== "user") return res.status(500).send("You are allowed to get this route access")
         try {
             const {id} = req.params
                 const singlePostDetail = await gettingSinglePost(id)
@@ -67,7 +65,6 @@ export const handleUserPostDetail =async(req, res)=>{
 }
 
 export const handleUserComment =async(req, res)=>{
-    if (req.user.role !== "user") return res.status(500).send("You are allowed to get this route access")
         try {
                 const {postId, comment} = req.body
                 console.log(req.body)
@@ -86,19 +83,18 @@ export const handleUserComment =async(req, res)=>{
 }
 
 export const handleUserLike =async(req, res)=>{
-    if (req.user.role !== "user") return res.status(500).send("You are allowed to get this route access")
         try {
                 const {postId} = req.body
-                const addComment = await userLike(postId, req.user.id)
-            if (addComment.status === 201) {
-                res.status(201).json({status:201, message: addComment.data})
+                console.log(postId," ------------  ",req.user.id)
+                const addLike = await userLike(postId, req.user.id)
+            if (addLike.status === 201) {
+                res.status(201).json({status:201, message: addLike.data})
             }else{
-                res.status(500).json({status:500, message: addComment.data})
+                res.status(500).json({status:500, message: addLike.data})
             }
                 
         } catch (error) {
             res.status(500).json({status:500, message: error.message})
-            
         }
 }
 

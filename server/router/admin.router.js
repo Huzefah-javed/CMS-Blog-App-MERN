@@ -1,5 +1,5 @@
 import {Router} from "express"
-import { handleAdminDashboard, handleAdminProfile, handleApprovingPost, handleApprovingUser, handleApprovingWriter, handleDeclineUser, handleDeclineWriter, handleDecliningPost, handlePendingPost, handlePendingUser, handlePendingWriter } from "../controller/admin.controller.js";
+import { handleAdminDashboard, handleAdminProfile, handleApprovingPost, handleApprovingUser, handleApprovingWriter, handleDeclineUser, handleDeclineWriter, handleDecliningPost, handleDraftingPost, handlePendingPost, handlePendingUser, handlePendingWriter } from "../controller/admin.controller.js";
 
 const adminRouter = Router();
     
@@ -13,6 +13,7 @@ const adminRouter = Router();
     adminRouter.get("/pendingPosts", handlePendingPost)
     adminRouter.get("/pendingPosts/:id", handleApprovingPost)
     adminRouter.get("/decliningPosts/:id", handleDecliningPost)
+    adminRouter.post("/draftingPost", handleDraftingPost)
     adminRouter.get("/profile", handleAdminProfile)  
     
 export default adminRouter;

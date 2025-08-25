@@ -14,8 +14,6 @@ export function Login() {
          setAuthUser(userDetail)
           console.log("form submitted")
     }
-    
-    console.log(authUser)
 
 
   return (
@@ -90,6 +88,7 @@ export function Login() {
                 onChange={(e)=>{setForm({...form, role: e.target.value})}}
                 className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-white px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
+                <option value="">--Select Role--</option>
                 <option value="user">User</option>
                 <option value="writer">Writer</option>
                 <option value="admin">Admin</option>
@@ -103,6 +102,16 @@ export function Login() {
               Log In
             </button>
           </form>
+          <span className="text-gray-300 text-sm pt-4">
+  New to this app:{" "}
+  <a
+    href="/registration"
+    className="text-blue-400 hover:text-blue-500 underline font-medium transition-colors duration-200"
+  >
+    Register here
+  </a>
+</span>
+
         </div>
       </div>
     </div>

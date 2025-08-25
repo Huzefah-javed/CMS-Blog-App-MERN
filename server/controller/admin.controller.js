@@ -1,4 +1,4 @@
-import { approvePost, blogCount, declinePost, newPosts, pendingBlogCount, pendingPosts } from "../model/post.model.js";
+import { approvePost, blogCount, declinePost, draftingPost, newPosts, pendingBlogCount, pendingPosts } from "../model/post.model.js";
 import { adminProfile, approveUser, declineUser, newUsersJoin, pendingUsers, userCounts } from "../model/user.model.js"
 import { writerCounts, approveWriter, pendingWriters, declineWriter } from "../model/writer.model.js";
 
@@ -277,6 +277,31 @@ export const handlePendingPost =async(req, res)=> {
             res.status(500).json({
             status: 500,
             message: "failed to decline",
+                                })
+         }
+     } catch (error) {
+             res.status(500).json({
+                 status: 500,
+                 message: error.message,
+                })
+          }
+   }
+   export const handleDraftingPost =async(req,res)=>{
+    
+    if (req.user.role !== "admin") return res.status(500).send("You are allowed to get this route access")
+         try {
+           const {postId} = req.body;
+         const response = await draftingPost(postId)
+         if (response.status === 201) {
+             res.status(201).json({
+             status: 201,
+             message: response.message,
+                                
+                                })
+        }else{
+            res.status(500).json({
+            status: 500,
+            message: "failed to drafting",
                                 })
          }
      } catch (error) {

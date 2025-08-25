@@ -39,3 +39,10 @@ export const handleLogin =async(req, res)=>{
     }
 
 }
+
+export const handleLogout=(req, res)=>{
+
+    res.clearCookie("authToken")
+    res.json({message:"logout success", status:200})
+
+}

@@ -1,23 +1,22 @@
-import { useState } from "react";
-import { registration } from "../Api/api";
+import { useContext, useState } from "react";
+import { login, registration } from "../Api/api";
+import { AuthContext } from "../App";
 
 
 export function Registration() {
 
+   const {authUser, setAuthUser} = useContext(AuthContext)
   const [form, setForm] = useState({name: "", email: "", password: "", role:""})
   
   
       const formSubmitting=async(e)=>{
           e.preventDefault();
             await registration(form)
+             const userDetail = await login({email:form.email, password:form.password, role:form.role})
+              setAuthUser(userDetail)
             console.log("form submitted")
       }
       
-
-
-
-
-
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-tr from-slate-100 to-blue-200 dark:from-slate-900 dark:to-slate-800 px-4">
       <div className="w-full max-w-6xl bg-white dark:bg-[#0f172a]/60 shadow-2xl rounded-xl overflow-hidden grid md:grid-cols-2 backdrop-blur-md">
@@ -113,6 +112,7 @@ export function Registration() {
                 onChange={(e)=>{setForm({...form, role:e.target.value})}}
                 className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-800 text-gray-900 dark:text-white px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
+                <option value="">--Select role--</option>
                 <option value="user">User</option>
                 <option value="writer">Writer</option>
                 <option value="admin">Admin</option>
@@ -127,6 +127,15 @@ export function Registration() {
               Create Account
             </button>
           </form>
+           <span className="text-gray-300 text-sm pt-4">
+  Already registered?{" "}
+  <a
+    href="/"
+    className="text-blue-400 hover:text-blue-500 underline font-medium transition-colors duration-200"
+  >
+    Login here
+  </a>
+</span>
         </div>
       </div>
     </div>

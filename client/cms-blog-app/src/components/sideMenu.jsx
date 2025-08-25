@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { LuUsers } from "react-icons/lu";
+import { LuLogOut, LuUsers } from "react-icons/lu";
 import { AuthContext } from "../App";
-import { Navigate } from "react-router";
+import { logout } from "../Api/api";
 
 export function SideMenuDashboard({menus}){
   
@@ -10,12 +10,17 @@ export function SideMenuDashboard({menus}){
 
   const [menuToggle, setMenuToggle] = useState(false)
 
-const pageNameChange =(name)=>{
-  setPageName(name)
+const handleLogout =async()=>{
+   const res = await logout()
+   if (res.status=== 200) {
+    localStorage.clear();
+    window.location.href = "/";
+
+   }
+
 }
 
   
-console.log(menus)
 
     return(<>
              <div className={`${menuToggle? "w-[5%]": "w-1/4"} sticky top-0 h-dvh m-0 flex flex-col border-r border-slate-700 bg-white dark:bg-slate-900 transition-all ease-in-out duration-200`}>
@@ -24,12 +29,13 @@ console.log(menus)
                     <button onClick={()=> setMenuToggle(!menuToggle)} className="p-2 hover:bg-[#00000010] dark:hover:bg-[#ffffff10] dark:text-white rounded-[4px]">{menuToggle?<IoIosArrowForward />:<IoIosArrowBack />}</button>
                </header> 
 
-                  <menu className="flex-1/2 flex flex-col  justify-start gap-3 border-b border-slate-700 p-2">
+                  <menu className="flex-1/2 flex flex-col overflow-y-scroll scroll-p-0 custom-scrollbar justify-start gap-3 border-b border-slate-700 p-2">
                 { menus?.map(({menuName, navigateTo, icon}, id)=>(
 
-                  <a key={id} onClick={()=>pageNameChange(menuName)} href={navigateTo} className="flex gap-2 dark:text-white hover:bg-[#00000010] dark:hover:bg-[#ffffff10] hover:cursor-pointer rounded-[4px] px-2 py-4 group">{icon} <span hidden={menuToggle} className="text-[1rem] font-bold">{menuName}</span></a>  
+                  <a key={id} href={navigateTo} className="flex gap-2 dark:text-white hover:bg-[#00000010] dark:hover:bg-[#ffffff10] hover:cursor-pointer rounded-[4px] px-2 py-4 group">{icon} <span hidden={menuToggle} className="text-[1rem] font-bold">{menuName}</span></a>  
                 ))
-                }
+              }
+              <button onClick={()=>handleLogout()} className="flex gap-2 dark:text-white hover:bg-[#00000010] dark:hover:bg-[#ffffff10] hover:cursor-pointer rounded-[4px] px-2 py-4 group"><LuLogOut className="text-[1.2rem] group-hover:text-[1.3rem] transition-all ease-in-out duration-100" /> <span hidden={menuToggle} className="text-[1rem] font-bold">Logout</span></button>  
                 </menu>
                   
              

@@ -8,7 +8,7 @@ export const settingCookie =(name, email, role, id, res)=> {
        secure: true, 
  })
 
-     res.status(201).json({status: 201 ,message: "JWT cookie set successfully" , personDetail: {name, email, role}})
+     res.status(201).json({status: 201 ,message: "JWT cookie set successfully" , personDetail: {name, email, role, id}})
 }
 
 export const cookieVerifying =(req, res, next)=> {

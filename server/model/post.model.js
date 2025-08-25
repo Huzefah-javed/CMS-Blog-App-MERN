@@ -1,3 +1,4 @@
+import mongoose from "mongoose"
 import { blogs } from "./schema.model.js"
 
 
@@ -72,7 +73,8 @@ export const approvePost =async(id)=>{
         message: ""
     }
     try {
-         await blogs.updateOne({_id: id},{$set: {status: "approved"}})
+        const objectId = new mongoose.Types.ObjectId(id)
+         await blogs.updateOne({_id: objectId},{$set: {status: "approved"}})
         result.message = "post Approved successfully"
         result.status = 201
     } catch (error) {
@@ -88,7 +90,24 @@ export const declinePost =async(id)=>{
             message: ""
         }
         try {
-            await blogs.updateOne({_id: id},{$set: {status: "decline"}})
+            const objectId = new mongoose.Types.ObjectId(id)
+            await blogs.updateOne({_id: objectId},{$set: {status: "decline"}})
+            result.message = "Post Decline successfully"
+            result.status = 201
+        } catch (error) {
+            result.status = 500
+            result.message = error.message
+        }
+        return result;
+}
+
+export const draftingPost =async(id)=>{
+     let result = {
+            status: 0,
+            message: ""
+        }
+        try {
+            await blogs.updateOne({_id: id},{$set: {status: "drafted"}})
             result.message = "Post Decline successfully"
             result.status = 201
         } catch (error) {

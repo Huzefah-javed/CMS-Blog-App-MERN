@@ -13,3 +13,9 @@ body{
     background-color: #f4f4f4;
     /* background-color: #0f172a ; */
 }
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0px;
+  height: 0px; 
+}
+

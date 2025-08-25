@@ -28,16 +28,18 @@ export const WriterDraftPosts = () => {
              }
              fetch()
             },[])
-        console.log(draftPost)
     
         return(
             <div className="flex flex-1/2">
-                <div hidden={editMode} className="h-full w-full absolute bg-[#00000067] backdrop-blur-[4px] z-10 flex justify-center items-center">
+                <div hidden={editMode} className="h-full w-full absolute inset-0  bg-[#00000067] backdrop-blur-[4px] z-10">
+                    <div className="h-lvh sticky inset-0 flex justify-center items-center">
+
                     <span onClick={()=>setEditMode(true)} className="bg-white p-2 absolute right-2 top-2">
                         <IoMdClose/>
                     </span>
                     <CreatePost formSubmit={handleDraftPostPublish} setForm={setDraftPost} form={draftPost} titleVal={draftPost.title} postVal={draftPost.post} isDraftPost={true}/>
                 </div>
+                    </div>
             <PostingInterface apiData={apiData} setEditMode={setEditMode} setDraftPost={setDraftPost} isDraftPost={true}/>
             </div>
         )
