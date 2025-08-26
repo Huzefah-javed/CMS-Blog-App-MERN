@@ -18,6 +18,7 @@ import { WriterLayout } from "./layouts/writerLayout";
 import { UserProfile } from "./pages/user/userProfile";
 import { UserLayout } from "./layouts/userLayout";
 import { Registration } from "./pages/registration";
+import NotFound from "./pages/404";
 
 export const AuthContext = createContext({})
 function App(){
@@ -143,7 +144,8 @@ const router = createBrowserRouter([
   path: "/registration",
   element: Object.keys(authUser).length === 0?  <Registration/>: <Navigate to={`/${authUser.role}/dashboard`} />,
     },
-    route
+    route,
+     { path: "*", element: <NotFound /> }
 ])
 
 
