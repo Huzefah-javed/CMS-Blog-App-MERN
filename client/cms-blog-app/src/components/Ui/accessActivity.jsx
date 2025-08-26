@@ -36,10 +36,10 @@ useEffect(()=>{
                     <div className="py-4 flex flex-col gap-4">
                         {data?.map((element, id) => {
                             const {_id, name, title, createdAt, role, status, creatorName} = element
-                       let date = new Date(createdAt).toLocaleString()
+                       let date = new Date(createdAt).toLocaleDateString()
                             return(
 
-                                <section key={id} className=" bg-[#f7f7f7] shadow-2xl flex items-center justify-between p-2 dark:bg-[#ffffff18] rounded-2xl">
+                                <section key={id} className=" bg-[#f7f7f7] shadow-2xl flex flex-wrap md:flex-nowrap items-center justify-between p-2 dark:bg-[#ffffff18] rounded-2xl">
                                     <div className="flex gap-2">
                              {name?( <div className="size-12 rounded-3xl text-white bg-black flex justify-center items-center">{name.slice(0,1)}</div>):""}
                              <div className="flex flex-col">
@@ -52,19 +52,22 @@ useEffect(()=>{
                 <div className="text-[0.6rem] font-extrabold dark:text-white">
                               {date}
                 </div>
-                <button
+               
+                
+              </div>
+              <div className="w-full md:w-auto flex gap-2 p-4">
+                 <button
                   onClick={() => onApprove(_id)}
-                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-2 rounded-lg text-xs"
+                  className="bg-green-500 hover:bg-green-600 flex-1/2 md:flex-[0] text-white font-bold py-1 px-2 rounded-lg text-xs"
                 >
                   Approve
                 </button>
                 <button
                   onClick={() => onDecline(_id)}
-                className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded-lg text-xs"
+                className="bg-red-500 hover:bg-red-600 flex-1/2 md:flex-[0] text-white font-bold py-1 px-2 rounded-lg text-xs"
                 >
                   Decline
                 </button> 
-                
               </div>
                              </section>
                             )

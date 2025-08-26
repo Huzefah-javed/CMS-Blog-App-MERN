@@ -67,8 +67,8 @@ const handlePostDraft =async(id)=>{
         </div>
 
         {/* Post Title and Content */}
-        <h2 className="text-2xl font-bold mb-2 dark:text-white">{post.title}</h2>
-        <p className="dark:text-white leading-relaxed mb-4">{post.post}</p>
+        <h2 className="md:text-2xl text-[1rem] font-bold mb-2 dark:text-white">{post.title}</h2>
+        <p className="dark:text-white leading-relaxed text-[0.75rem] md:text-[1rem] mb-4">{post.post}</p>
 
 
         {post.status === "approved"?(
@@ -108,13 +108,13 @@ const handlePostDraft =async(id)=>{
           }
           {
             personData?.authUser?.role === "admin"? (
-                <div className="flex items-center justify-between dark:bg-gray-800 bg-white text-gray-500 p-3 rounded-lg shadow-md">
-                  <span className="text-sm font-medium">Change status:</span>
-                  <span className="space-x-2">
-                    <button onClick={()=>handlePostDecline(post._id)} className="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded-md text-sm transition-colors">
+                <div className="flex flex-wrap md:flex-nowrap gap-4 items-center justify-between dark:bg-gray-800 bg-white text-gray-500 p-3 rounded-lg shadow-md">
+                  <span className="text-sm font-medium flex-1/2">Change status:</span>
+                  <span className="space-x-2 w-full flex justify-end gap-4  flex-1/2">
+                    <button onClick={()=>handlePostDecline(post._id)} className="flex-1/2 md:flex-[0] px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded-md text-sm transition-colors">
                       Decline
                     </button>
-                    <button onClick={()=>handlePostDraft(post._id)} className="px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded-md text-sm transition-colors">
+                    <button onClick={()=>handlePostDraft(post._id)} className="flex-1/2 md:flex-[0] px-3 py-1 bg-yellow-500 hover:bg-yellow-600 text-white rounded-md text-sm transition-colors">
                       Draft
                     </button>
                   </span>

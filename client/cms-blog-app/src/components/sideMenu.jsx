@@ -10,6 +10,7 @@ export function SideMenuDashboard({menus}){
   const personData = useContext(AuthContext)
 
   const [menuToggle, setMenuToggle] = useState(false)
+  const [menuToggleSmallScreen, setMenuToggleSmallScreen] = useState(false)
 
 const handleLogout =async()=>{
    const res = await logout()
@@ -19,6 +20,11 @@ const handleLogout =async()=>{
 
    }
 
+}
+
+
+const handleMenuShowOnMobile =()=>{
+  setMenuToggleSmallScreen(!menuToggleSmallScreen)
 }
 
 const handleMode = () => {
@@ -31,10 +37,12 @@ const handleMode = () => {
   
 
     return(<>
-             <div className={`${menuToggle? "w-[5%]": "w-1/4"} sticky top-0 h-dvh m-0 flex flex-col border-r border-slate-700 bg-white dark:bg-slate-900 transition-all ease-in-out duration-200`}>
-               <header className="border-b border-slate-700  flex items-center justify-between p-4">
+              <button onClick={handleMenuShowOnMobile} className="md:hidden fixed w-[3rem] z-30 h-[3rem] inset-0 p-4 dark:bg-slate-600 dark:hover:bg-slate-800 dark:text-white bg-[#ffffffab] hover:bg-white text-black rounded-[4px]"><IoIosArrowForward /></button>
+             <div className={`${menuToggle? "w-[5%]": "w-1/4"} md:sticky  z-30 top-0 md:left-0 fixed ${menuToggleSmallScreen?"left-0 w-auto":"left-[-50%]"} h-dvh m-0 flex flex-col border-r border-slate-700 bg-white dark:bg-slate-900 transition-all ease-in-out duration-200`}>
+               <header className="border-b border-slate-700  flex items-center justify-between gap-4 p-4">
                     <h1 hidden={menuToggle} className="text-[1.7rem] text-transparent bg-clip-text font-[900] bg-gradient-to-r from-indigo-500 to-purple-600">Blog App</h1>
-                    <button onClick={()=> setMenuToggle(!menuToggle)} className="p-2 hover:bg-[#00000010] dark:hover:bg-[#ffffff10] dark:text-white rounded-[4px]">{menuToggle?<IoIosArrowForward />:<IoIosArrowBack />}</button>
+                    <button onClick={()=> setMenuToggle(!menuToggle)} className="hidden md:block p-2 hover:bg-[#00000010] dark:hover:bg-[#ffffff10] dark:text-white rounded-[4px]">{menuToggle?<IoIosArrowForward />:<IoIosArrowBack />}</button>
+              <button onClick={handleMenuShowOnMobile} className="md:hidden p-2 dark:bg-slate-600 dark:hover:bg-slate-800 dark:text-white rounded-[4px]">{menuToggle?<IoIosArrowForward />:<IoIosArrowBack />}</button>
                </header> 
 
                   <menu className="flex-1/2 flex flex-col overflow-y-scroll scroll-p-0 custom-scrollbar justify-start gap-3 border-b border-slate-700 p-2">
