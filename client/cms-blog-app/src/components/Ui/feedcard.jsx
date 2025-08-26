@@ -77,7 +77,7 @@ const handlePostDraft =async(id)=>{
             onClick={()=>handleLikeClick(post._id)}
             className={`flex items-center mr-6`}
           >
-           {post?.likes?.includes(personData.authUser.id) || isLiked? <FaHeart className={`h-6 w-6 mr-1 text-red-500`}/>:< FaRegHeart className={`h-6 w-6 mr-1`}/>}
+           {post?.likes?.includes(personData?.authUser?.id) || isLiked? <FaHeart className={`h-6 w-6 mr-1 text-red-500`}/>:< FaRegHeart className={`h-6 w-6 mr-1`}/>}
             <span className="text-lg">{post.likes.length}</span>
           </button> 
           <button
@@ -108,7 +108,7 @@ const handlePostDraft =async(id)=>{
           }
           {
             personData?.authUser?.role === "admin"? (
-                <div className="flex items-center justify-between bg-gray-800 text-gray-200 p-3 rounded-lg shadow-md">
+                <div className="flex items-center justify-between dark:bg-gray-800 bg-white text-gray-500 p-3 rounded-lg shadow-md">
                   <span className="text-sm font-medium">Change status:</span>
                   <span className="space-x-2">
                     <button onClick={()=>handlePostDecline(post._id)} className="px-3 py-1 bg-red-500 hover:bg-red-600 text-white rounded-md text-sm transition-colors">

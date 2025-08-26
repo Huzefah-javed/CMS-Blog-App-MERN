@@ -3,6 +3,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { LuLogOut, LuUsers } from "react-icons/lu";
 import { AuthContext } from "../App";
 import { logout } from "../Api/api";
+import { CgDarkMode } from "react-icons/cg";
 
 export function SideMenuDashboard({menus}){
   
@@ -20,6 +21,13 @@ const handleLogout =async()=>{
 
 }
 
+const handleMode = () => {
+  const newTheme = personData.theme === "light" ? "dark" : "light";
+  localStorage.setItem("theme", newTheme);
+  personData.setTheme(newTheme);
+};
+
+
   
 
     return(<>
@@ -35,6 +43,7 @@ const handleLogout =async()=>{
                   <a key={id} href={navigateTo} className="flex gap-2 dark:text-white hover:bg-[#00000010] dark:hover:bg-[#ffffff10] hover:cursor-pointer rounded-[4px] px-2 py-4 group">{icon} <span hidden={menuToggle} className="text-[1rem] font-bold">{menuName}</span></a>  
                 ))
               }
+              <button onClick={()=>handleMode()} className="flex gap-2 dark:text-white hover:bg-[#00000010] dark:hover:bg-[#ffffff10] hover:cursor-pointer rounded-[4px] px-2 py-4 group"><CgDarkMode className="text-[1.2rem] group-hover:text-[1.3rem] transition-all ease-in-out duration-100" /> <span hidden={menuToggle} className="text-[1rem] font-bold">Change mode</span></button>  
               <button onClick={()=>handleLogout()} className="flex gap-2 dark:text-white hover:bg-[#00000010] dark:hover:bg-[#ffffff10] hover:cursor-pointer rounded-[4px] px-2 py-4 group"><LuLogOut className="text-[1.2rem] group-hover:text-[1.3rem] transition-all ease-in-out duration-100" /> <span hidden={menuToggle} className="text-[1rem] font-bold">Logout</span></button>  
                 </menu>
                   

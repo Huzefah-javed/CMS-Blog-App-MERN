@@ -22,12 +22,20 @@ import { Registration } from "./pages/registration";
 export const AuthContext = createContext({})
 function App(){
 
+const [theme, setTheme] = useState(()=>{
+  const curTheme = localStorage.getItem("theme")
+  return curTheme? curTheme :"light"
+})
+
 const [authUser, setAuthUser] = useState(()=>{
 const storageData = localStorage.getItem("userAuth")
   return  storageData? JSON.parse(storageData): {}
 })
 
-
+useEffect(()=>{
+  console.log(theme)
+  document.getElementById("root").className = theme
+},[theme])
 
 useEffect(()=>{
   localStorage.setItem("userAuth", JSON.stringify(authUser))
@@ -141,7 +149,7 @@ const router = createBrowserRouter([
 
   return(
     <>
-    <AuthContext.Provider value={{authUser, setAuthUser}}>
+    <AuthContext.Provider value={{authUser, setAuthUser, theme, setTheme}}>
     <RouterProvider router={router}>
 
     </RouterProvider>

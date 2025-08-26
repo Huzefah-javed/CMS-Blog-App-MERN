@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-
+@custom-variant dark (&:where(.dark, .dark *));
 
 
 * {
@@ -15,7 +15,15 @@ body{
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 0px;
-  height: 0px; 
-}
+  width: 4px;
+  height: 4px;
+  }
+.custom-scrollbar::-webkit-scrollbar-thumb{
+  background-color: #9ca3af;
+  border-radius: 50px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  -ms-border-radius: 50px;
+  -o-border-radius: 50px;
 
+}
