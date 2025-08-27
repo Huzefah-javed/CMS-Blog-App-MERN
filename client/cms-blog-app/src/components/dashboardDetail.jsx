@@ -18,7 +18,7 @@ export function DashboardDetail({activitiesData, cardData}){
                 return(
                 <Activity 
                 key={id}
-                heading="Recent added users"
+                heading="Recent added"
                 activities={activity}
                 />
                 )

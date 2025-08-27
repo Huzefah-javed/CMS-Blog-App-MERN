@@ -24,7 +24,7 @@ export function CommentBox({Comments, showComments, setShowComments, postId}){
   };
 
 
-    return(<div hidden={showComments} className="h-full w-full absolute top-0 left-0 bg-white dark:bg-slate-800 z-10">
+    return(<div hidden={showComments} className="h-full w-full absolute top-0 left-0 z-40 bg-white dark:bg-slate-800">
         <div className="h-dvh sticky top-0 left-0 flex flex-col justify-between gap-8 overflow-y-scroll">
 
         <span className="w-full p-4 absolute right-2 top-2 flex justify-between items-center">

@@ -1,4 +1,4 @@
-export function Activity ({heading, activities}){
+export function Activity ({heading, activities, }){
     console.log(activities)
     return(<>
                       {/* console.log(activities) */}
