@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const api = axios.create({
-    baseURL: "cms-blog-app-mern.railway.internal"
+    baseURL: "blog-mern-api.com/"
 })
 
 export const adminDashboardData =async()=>{
