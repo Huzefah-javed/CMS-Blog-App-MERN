@@ -8,10 +8,14 @@ import cors from "cors"
 
 const app = express();
 
-app.use(cors({
-  origin: "https://cms-blog-app-mern.vercel.app", 
-  credentials: true,
-}));
+const corsOptions = {
+  origin: "https://cms-blog-app-mern.vercel.app", // your frontend
+  credentials: true, // allow cookies
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
 
 dotenv.config()
 app.use(express.json())
