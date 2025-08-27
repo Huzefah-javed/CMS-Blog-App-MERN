@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const api = axios.create({
-    baseURL: "blog-mern-api.com/"
+    baseURL: "https://blog-mern-api.com/"
 })
 
 export const adminDashboardData =async()=>{
