@@ -6,6 +6,7 @@ export const settingCookie =(name, email, role, id, res)=> {
        maxAge:  10800000,
        httpOnly: true,
        secure: true, 
+        sameSite: "none",
  })
 
      res.status(201).json({status: 201 ,message: "JWT cookie set successfully" , personDetail: {name, email, role, id}})
