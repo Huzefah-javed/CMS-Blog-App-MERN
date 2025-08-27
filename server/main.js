@@ -9,7 +9,7 @@ import cors from "cors"
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:5173',  
+  origin: 'https://cms-blog-app-mern.vercel.app/',  
   credentials: true ,
   withCredentials: true,
 
