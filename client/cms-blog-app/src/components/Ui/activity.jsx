@@ -5,7 +5,8 @@ export function Activity ({heading, activities, }){
                 <section className="bg-white p-4 my-4 rounded-2xl dark:bg-[#ffffff10] flex-1/2">
                     <header className="text-[1.5rem] dark:text-white">{heading}</header>
                     <div className="py-4 flex flex-col gap-4">
-                        {activities?.map((element, id) => {
+
+                        {activities?.length !== 0?activities?.map((element, id) => {
                             const {name, title, createdAt, role, status, creatorName} = element
                         //    const data = Object.values(element)
                        let date = new Date(createdAt).toLocaleString()
@@ -24,7 +25,7 @@ export function Activity ({heading, activities, }){
                              <div className="text-[0.6rem] font-extrabold dark:text-white">{date}</div>
                              </section>
                             )
-                         })}
+                         }):(<div className="w-full h-full flex item-center justify-center text-[1.5rem] dark:text-white">Not Activity Found</div>)}
                     </div>
                 </section>        
     

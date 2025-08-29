@@ -4,7 +4,7 @@ import { GridCard } from "./Ui/gridCard";
 import { AccessActivity } from "./Ui/accessActivity";
 
 export function DashboardDetail({activitiesData, cardData}){
-    console.log(activitiesData)
+
     return(<div className="p-4 flex-1 dark:bg-slate-900">
              <header className="flex flex-col gap-1">
                 <div className="text-[2rem] dark:text-white font-extrabold ">Dashboard</div>
@@ -14,7 +14,7 @@ export function DashboardDetail({activitiesData, cardData}){
            {cardData?( <GridCard cards={cardData} />): ""}
             <div className="w-full flex gap-5 flex-col md:flex-row">
 
-            {activitiesData?.map((activity, id)=>{
+            {activitiesData?.length >0?activitiesData?.map((activity, id)=>{
                 return(
                 <Activity 
                 key={id}
@@ -22,7 +22,7 @@ export function DashboardDetail({activitiesData, cardData}){
                 activities={activity}
                 />
                 )
-            })}
+            }):""}
                </div>
                      {/* <AccessActivity/>           */}
         </div>)

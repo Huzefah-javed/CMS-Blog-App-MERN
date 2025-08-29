@@ -30,7 +30,7 @@ const menu = [
 
     return(<>
             
-             <div className="w-full flex gap-0 relative">
+             <div className="w-full min-h-lvh flex gap-0 relative">
                     <SideMenuDashboard menus={menu}/>
                     <Outlet />
                     </div>

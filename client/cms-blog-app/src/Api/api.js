@@ -1,7 +1,8 @@
 import axios from "axios"
 
 const api = axios.create({
-    baseURL: "https://cms-blog-app-mern-production.up.railway.app/"
+    baseURL: "https://cms-blog-app-mern-production.up.railway.app",
+    withCredentials: true
 })
 
 export const adminDashboardData =async()=>{
@@ -90,11 +91,7 @@ export const declinePendingPosts =async(postId)=>{
 const result = await api.get(`admin/decliningPosts/${postId}`, {withCredentials: true})
    return result.data
 }
-export const userFavPostData =async(postId)=>{
-   const result = await api.get(`user/feeds/${postId}`, {withCredentials: true})
-   console.log("oyeeeee ss",result.data)
-   return result.data;
-}
+
 export const addLike =async(id)=>{
    console.log("check id ",id)
    const result = await api.post("/addLike", {postId: id}, {withCredentials: true})

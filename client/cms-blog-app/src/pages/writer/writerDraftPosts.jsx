@@ -30,11 +30,11 @@ export const WriterDraftPosts = () => {
             },[])
     
         return(
-            <div className="flex md:flex-1/2">
+            <div className="flex flex-1/2">
                 <div hidden={editMode} className="h-full w-full absolute inset-0  bg-[#00000067] backdrop-blur-[4px] z-10">
                     <div className="h-lvh sticky inset-0 flex justify-center items-center">
 
-                    <span onClick={()=>setEditMode(true)} className="bg-white p-2 absolute right-2 top-2">
+                    <span onClick={()=>setEditMode(true)} className="absolute right-2 top-2  bg-black text-white dark:text-black dark:bg-white p-2 rounded-full cursor-pointer hover:scale-110 transition-transform ">
                         <IoMdClose/>
                     </span>
                     <CreatePost formSubmit={handleDraftPostPublish} setForm={setDraftPost} form={draftPost} titleVal={draftPost.title} postVal={draftPost.post} isDraftPost={true}/>
