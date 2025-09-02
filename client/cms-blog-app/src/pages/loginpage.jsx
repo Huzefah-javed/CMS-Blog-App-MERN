@@ -1,20 +1,32 @@
 import { useContext, useState } from "react";
 import { login } from "../Api/api";
 import { AuthContext } from "../App";
+import LoadingPage from "./loading";
+  import { toast } from 'react-toastify';
 
 export function Login() {
 
     const {authUser, setAuthUser} = useContext(AuthContext)
     const [form, setForm] = useState({email: "", password: "", role:""})
+    
 
 
     const formSubmitting=async(e)=>{
+      try {
         e.preventDefault();
-         const userDetail = await login(form)
-         setAuthUser(userDetail)
-          console.log("form submitted")
+        
+        const userDetail = await login(form)
+        console.log(userDetail.personDetail)
+        setAuthUser(userDetail.personDetail)
+        
+        toast.success('Logged in successfully');
+        
+      } catch (error) {
+        toast.error("failed to Login")
+      } 
     }
 
+    
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-tr from-slate-100 to-blue-200 dark:from-slate-900 dark:to-slate-800 px-4">

@@ -3,22 +3,28 @@ import { DashboardDetail } from "../../components/dashboardDetail";
 import { SideMenuDashboard } from "../../components/sideMenu";
 import { userDashboardData } from "../../Api/api";
 import { AccessActivity } from "../../components/Ui/accessActivity";
+import LoadingPage from "../loading";
 
 export function UserDashboard(){
     
 const [apiData, setApiData] = useState("")
-const [favPosts, setFavPosts] = useState([])
+const [loading, setLoading] = useState(false)
 
     useEffect(()=>{
      async function fetch(){
-      const data =  await userDashboardData()
-     setApiData(data)
+        setLoading(true)
+        const data =  await userDashboardData()
+        setApiData(data)
+        setLoading(false)
      }
      fetch()
     },[])
     
+    if (loading) {
+           return <LoadingPage/>
+        }
 
-    console.log(apiData)
+    
     
     const TotalComments = apiData?.commentedPosts?.length
     const TotalLikePosts = apiData?.likePosts?.length

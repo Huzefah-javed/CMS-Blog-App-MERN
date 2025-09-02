@@ -1,22 +1,33 @@
 import { useContext, useState } from "react";
 import { login, registration } from "../Api/api";
 import { AuthContext } from "../App";
+import LoadingPage from "./loading";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 
 export function Registration() {
 
-   const {authUser, setAuthUser} = useContext(AuthContext)
   const [form, setForm] = useState({name: "", email: "", password: "", role:""})
-  
+   
+  const navigate = useNavigate()
   
       const formSubmitting=async(e)=>{
           e.preventDefault();
-            await registration(form)
-             const userDetail = await login({email:form.email, password:form.password, role:form.role})
-              setAuthUser(userDetail)
-            console.log("form submitted")
+        try {
+          
+          const respond = await registration(form)
+          if (respond.status === 201) {
+            toast.success("Register successfully")
+           navigate("/")
+          }
+        } catch (error) {
+          toast.error("Failed to Register")
+        }
+          
+            
       }
-      
+     
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-tr from-slate-100 to-blue-200 dark:from-slate-900 dark:to-slate-800 px-4">
       <div className="w-full max-w-6xl bg-white dark:bg-[#0f172a]/60 shadow-2xl rounded-xl overflow-hidden grid md:grid-cols-2 backdrop-blur-md">

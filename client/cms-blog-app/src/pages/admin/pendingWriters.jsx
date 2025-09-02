@@ -15,7 +15,7 @@ export const PendingWriters =()=>{
          fetch()
         },[])
 
-        // console.log(apiData)
+        
         
 
     return(<>

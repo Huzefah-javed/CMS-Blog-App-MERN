@@ -9,7 +9,7 @@ import cors from "cors"
 const app = express();
 
 const corsOptions = {
-  origin: "https://cms-blog-app-mern.vercel.app", // your frontend
+  origin: "http://localhost:5173", // your frontend
   credentials: true, // allow cookies
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],

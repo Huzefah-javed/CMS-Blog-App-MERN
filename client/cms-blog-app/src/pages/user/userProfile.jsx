@@ -17,7 +17,7 @@ export const UserProfile =()=>{
                     }
                     fetch()
                   },[])
-                  console.log(apiData)               
+                           
     
                     if (apiData.length===0) {
                       return <div className="w-full flex gap-0">

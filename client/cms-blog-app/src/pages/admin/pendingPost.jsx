@@ -18,8 +18,6 @@ export const PendingPosts =()=>{
         },[])
 
         
-        console.log("personData, ", personData)
-
     return( <>
         <AccessActivity activities={apiData.pendingPosts}
                         heading={`Total pending posts - ${apiData.totalPendingPosts}`}

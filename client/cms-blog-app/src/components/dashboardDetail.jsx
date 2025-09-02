@@ -2,8 +2,11 @@ import { IoIosArrowBack } from "react-icons/io";
 import { Activity } from "./Ui/activity";
 import { GridCard } from "./Ui/gridCard";
 import { AccessActivity } from "./Ui/accessActivity";
+import LoadingPage from "../pages/loading";
 
-export function DashboardDetail({activitiesData, cardData}){
+export function DashboardDetail({activitiesData = undefined, cardData =undefined}){
+
+    
 
     return(<div className="p-4 flex-1 dark:bg-slate-900">
              <header className="flex flex-col gap-1">

@@ -1,7 +1,7 @@
 export function Activity ({heading, activities, }){
-    console.log(activities)
+    
     return(<>
-                      {/* console.log(activities) */}
+                      
                 <section className="bg-white p-4 my-4 rounded-2xl dark:bg-[#ffffff10] flex-1/2">
                     <header className="text-[1.5rem] dark:text-white">{heading}</header>
                     <div className="py-4 flex flex-col gap-4">

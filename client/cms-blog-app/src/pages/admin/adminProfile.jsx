@@ -17,18 +17,12 @@ export const AdminProfile =()=>{
                  fetch()
                 },[])
 
-                if (apiData.length===0) {
-                  return <div className="w-full flex gap-0">
-                    <p className="text-4xl text-gray-600">Loading...</p>
-                  </div>
-                    
-                }
-        if (apiData.length > 0) {
+                
+        
             
             return(<>
 
         <ProfilePage profileData={apiData[0]} />
     
         </>)
-}
 }

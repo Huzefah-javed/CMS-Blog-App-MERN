@@ -14,7 +14,7 @@ export const PendingUsers =()=>{
          fetch()
         },[])
 
-        // console.log(apiData)
+        
         
 
     return(<>

@@ -5,6 +5,7 @@ import { useEffect } from "react"
 import { draftPostSubmit, getDraftPosts } from "../../Api/api"
 import { IoMdClose } from "react-icons/io"
 import { CreatePost } from "../../components/createPost"
+import { toast } from "react-toastify"
 
 export const WriterDraftPosts = () => {
 
@@ -16,9 +17,18 @@ export const WriterDraftPosts = () => {
 
         const handleDraftPostPublish =async(e)=>{
             e.preventDefault()
-           const response = await draftPostSubmit(draftPost)
-           setEditMode(true)
-           console.log(response)
+            try {
+                setApiData(prev=> prev.filter(Elem=> Elem._id!==draftPost.draftPostId))
+                const response = await draftPostSubmit(draftPost)
+                toast.success("Uploaded successfully")
+                
+            } catch (error) {
+                toast.error("Failed to upload")
+                
+            }finally{
+                setEditMode(true)
+                
+            }
         }
 
             useEffect(()=>{
@@ -31,7 +41,7 @@ export const WriterDraftPosts = () => {
     
         return(
             <div className="flex flex-1/2">
-                <div hidden={editMode} className="h-full w-full absolute inset-0  bg-[#00000067] backdrop-blur-[4px] z-10">
+                <div hidden={editMode} className="h-full w-full absolute z-40 inset-0  bg-[#00000067] backdrop-blur-[4px]">
                     <div className="h-lvh sticky inset-0 flex justify-center items-center">
 
                     <span onClick={()=>setEditMode(true)} className="absolute right-2 top-2  bg-black text-white dark:text-black dark:bg-white p-2 rounded-full cursor-pointer hover:scale-110 transition-transform ">

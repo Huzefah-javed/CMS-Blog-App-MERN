@@ -19,6 +19,7 @@ import { UserProfile } from "./pages/user/userProfile";
 import { UserLayout } from "./layouts/userLayout";
 import { Registration } from "./pages/registration";
 import NotFound from "./pages/404";
+import { ToastContainer } from 'react-toastify';
 
 export const AuthContext = createContext({})
 function App(){
@@ -34,7 +35,6 @@ const storageData = localStorage.getItem("userAuth")
 })
 
 useEffect(()=>{
-  console.log(theme)
   document.getElementById("root").className = theme
 },[theme])
 
@@ -156,6 +156,7 @@ const router = createBrowserRouter([
 
     </RouterProvider>
     </AuthContext.Provider>
+    <ToastContainer />
   </>
   )
 }

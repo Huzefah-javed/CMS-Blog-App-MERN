@@ -31,11 +31,11 @@ export const handleLogin =async(req, res)=>{
             const {name, email, role, _id} = response.data
             settingCookie(name, email, role, _id, res)
        }else{
-         res.status(500).json({status:response.status, message: response.message})
+         res.status(400).json({status:response.status, message: response.message})
        }
         
     } catch (error) {
-         res.status(500).json({status:500, message: error.message})
+         res.status(400).json({status:500, message: error.message})
     }
 
 }

@@ -1,6 +1,10 @@
+import LoadingPage from "../pages/loading";
 
 export default function ProfilePage({profileData}) {
    
+  if (!profileData) {
+    return <LoadingPage/>
+  }
   
   const {
     name,
@@ -13,9 +17,6 @@ export default function ProfilePage({profileData}) {
   } = profileData;
   
     
-  if (!profileData) {
-    return <div className="text-white">Loading profile...</div>;
-  }
   
   
   if (profileData) {

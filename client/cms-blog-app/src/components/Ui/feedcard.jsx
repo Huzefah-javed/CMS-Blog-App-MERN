@@ -18,11 +18,9 @@ export const FeedPostCard = ({post, setEditMode, setDraftPost}) => {
 
 const handlePostDecline =async(id)=>{
    const response = await declinePendingPosts(id)
-   console.log(response)
 }
 const handlePostDraft =async(id)=>{
    const response = await DraftingPost(id)
-   console.log(response)
 }
 
   const handleLikeClick = async(postId) => {
@@ -40,7 +38,6 @@ const handlePostDraft =async(id)=>{
   }
 
   const handleEditDraftPost =(id, post, title)=>{
-    console.log(id, post, title)
     setDraftPost({draftPostId:id, post:post, title:title})
     setEditMode(false)
   }

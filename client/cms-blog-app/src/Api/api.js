@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const api = axios.create({
-    baseURL: "https://cms-blog-app-mern-production.up.railway.app",
+    baseURL: "http://localhost:5000",
     withCredentials: true
 })
 
@@ -105,13 +105,12 @@ export const addComment =async(userComment, id)=>{
 
 export const login =async(form)=> {
    const result = await api.post("/login", form, {withCredentials: true})
-   console.log("aaaaaahhhhhh ",result.data)
-   return result.data.personDetail
+   return result.data
 }
 
 export const registration =async(form)=> {
    const result = await api.post("/userRegistration", form, {withCredentials: true})
-   console.log(result.data)
+   return result.data
 }
 export const logout =async()=> {
    const result = await api.get("/logout", {withCredentials: true})

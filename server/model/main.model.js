@@ -34,7 +34,7 @@ export const loginConfirmation =async(inputEmail, inputPassword, inputRole)=>{
             
         }
     } catch (error) {
-        result.status = 500;
+        result.status = 400;
         result.message=error.message;
     }
     return result;   

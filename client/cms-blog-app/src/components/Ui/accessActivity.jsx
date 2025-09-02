@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react"
+import LoadingPage from "../../pages/loading"
+import { toast } from "react-toastify"
 
 export function AccessActivity ({heading, activities, approval, decline}){
 
-console.log(activities)
+if (!activities) {
+    return <LoadingPage/>  
+}
 
 const [data, setData] = useState([])
 
@@ -13,13 +17,14 @@ useEffect(()=>{
 
   const onApprove=async(id)=>{
     await approval(id)
+    toast.success("Approved successfully") 
     setData(prev=> prev.filter(elem=> elem._id!==id))
-    
   }
   
   const onDecline =async(id)=>{
     await decline(id)
     setData(prev=> prev.filter(elem=> elem._id!==id))
+    toast.success("Decline successfully") 
   
   }
 
