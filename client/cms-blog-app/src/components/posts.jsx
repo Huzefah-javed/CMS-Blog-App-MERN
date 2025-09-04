@@ -1,6 +1,10 @@
+import { declinePendingPosts, DraftingPost } from "../Api/api"
 import { FeedPostCard } from "./Ui/feedcard"
 
 export const PostingInterface =({apiData, setEditMode,setDraftPost, isDraftPost})=> {
+
+        
+       
 
     return(
         <div className="p-4 md:flex-1 dark:bg-slate-900 min-h-lvh w-full">
@@ -14,7 +18,7 @@ export const PostingInterface =({apiData, setEditMode,setDraftPost, isDraftPost}
 
                    <FeedPostCard
                    key={element._id}
-                   post={element}
+                   data={element}
                    setEditMode={setEditMode}
                    setDraftPost={setDraftPost}
                    />

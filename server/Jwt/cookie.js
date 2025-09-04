@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken"
 
-export const settingCookie =(name, email, role, id, res)=> {
-     const token =  jwt.sign({name, email, role, id}, process.env.JWT_SECRET, {expiresIn: "3h"}) 
+export const settingCookie =(name, email, role, id, isApprove,res)=> {
+     const token =  jwt.sign({name, email, role, id, isApprove}, process.env.JWT_SECRET, {expiresIn: "3h"}) 
      res.cookie("authToken", token, {
        maxAge:  10800000,
        httpOnly: true,
@@ -9,7 +9,7 @@ export const settingCookie =(name, email, role, id, res)=> {
         sameSite: "none",
  })
 
-     res.status(201).json({status: 201 ,message: "JWT cookie set successfully" , personDetail: {name, email, role, id}})
+     res.status(201).json({status: 201 ,message: "JWT cookie set successfully" , personDetail: {name, email, role, id, isApprove}})
 }
 
 export const cookieVerifying =(req, res, next)=> {

@@ -28,8 +28,8 @@ export const handleLogin =async(req, res)=>{
        const response = await loginConfirmation(email, password, role)
 
        if (response.status === 201) {
-            const {name, email, role, _id} = response.data
-            settingCookie(name, email, role, _id, res)
+            const {name, email, role, _id, isApprove} = response.data
+            settingCookie(name, email, role, _id, isApprove,res)
        }else{
          res.status(400).json({status:response.status, message: response.message})
        }

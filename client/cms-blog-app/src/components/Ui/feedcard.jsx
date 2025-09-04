@@ -5,28 +5,62 @@ import { BsSend } from "react-icons/bs";
 import { addComment, addLike, declinePendingPosts, DraftingPost, draftPostSubmit } from '../../Api/api';
 import { CommentBox } from './commentbox';
 import { AuthContext } from '../../App';
+import { toast } from 'react-toastify';
 
 
-export const FeedPostCard = ({post, setEditMode, setDraftPost}) => {
+export const FeedPostCard = ({data={}, setEditMode, setDraftPost,}) => {
 
-  const postDate = new Date(post.createdAt).toLocaleString()
+  const [post, setPost] = useState(data);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const [showComments, setShowComments] = useState(true);
+  const postDate = new Date(post?.createdAt).toLocaleString()
   const personData = useContext(AuthContext)
 
-  const [isLiked, setIsLiked] = useState(false);
-  const [showComments, setShowComments] = useState(true);
-  
 
-const handlePostDecline =async(id)=>{
-   const response = await declinePendingPosts(id)
-}
-const handlePostDraft =async(id)=>{
-   const response = await DraftingPost(id)
-}
+   const handlePostDecline =async(id)=>{
+          try {
+            const response = await declinePendingPosts(id)
+            if (response.status ===201) {
+              console.log(post)
+              setPost("")
+              toast.success("Declined successfully")  
+            }
+            
+          } catch (error) {
+            toast.error("SomeThing went wrong")  
+            
+          }
+        }
+        const handlePostDraft =async(id)=>{
+          try {
+            const response = await DraftingPost(id)
+            if(response.status === 201){
+              
+              console.log(post)
+              setPost("")
+                toast.success("Sent to writer's Draft successfully")  
+            }
+            
+            
+          } catch (error) {
+            toast.error("SomeThing went Wrong")  
+            
+          }
+        }
+
 
   const handleLikeClick = async(postId) => {
-    setIsLiked(!isLiked);
-    const response = await addLike(postId)
-    setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
+    try {
+      const response = await addLike(postId)
+      if (response.status === 201) {
+        setPost(prev=>({...prev, likes: [...prev.likes, personData.authUser.id]}))
+        toast.success("Like added successfully")  
+      }
+    } catch (error) {
+      toast.error("Some thing went wrong")
+      
+    }
   };
 
   const handleCommentToggle = () => {
@@ -34,7 +68,15 @@ const handlePostDraft =async(id)=>{
   };
 
   const onApprove=async(id)=>{
-    await draftPostSubmit(id)
+    try {
+      const response =  await draftPostSubmit(id)
+      if (response.status === 201) {
+        toast.success("Post Submit to Admin successfully")  
+      }
+    } catch (error) {
+      toast.success("Some thing went wrong")
+      
+    }
   }
 
   const handleEditDraftPost =(id, post, title)=>{
@@ -51,12 +93,12 @@ const handlePostDraft =async(id)=>{
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
             <img 
-              src={`https://placehold.co/40x40/566173/FFFFFF?text=${post.creatorName.slice(0,1)}`}
+              src={`https://placehold.co/40x40/566173/FFFFFF?text=${post?.creatorName?.slice(0,1)}`}
               alt="N"
               className="rounded-full mr-3 border-2 border-slate-700"
             />
             <div>
-              <p className="font-semibold text-lg dark:text-white">{post.creatorName}</p>
+              <p className="font-semibold text-lg dark:text-white">{post?.creatorName}</p>
               <p className="text-sm text-slate-400">{postDate}</p>
             </div>
           </div>
@@ -64,8 +106,8 @@ const handlePostDraft =async(id)=>{
         </div>
 
         {/* Post Title and Content */}
-        <h2 className="md:text-2xl text-[1rem] font-bold mb-2 dark:text-white">{post.title}</h2>
-        <p className="dark:text-white leading-relaxed text-[0.75rem] md:text-[1rem] mb-4">{post.post}</p>
+        <h2 className="md:text-2xl text-[1rem] font-bold mb-2 dark:text-white">{post?.title}</h2>
+        <p className="dark:text-white leading-relaxed text-[0.75rem] md:text-[1rem] mb-4">{post?.post}</p>
 
 
         {post.status === "approved"?(

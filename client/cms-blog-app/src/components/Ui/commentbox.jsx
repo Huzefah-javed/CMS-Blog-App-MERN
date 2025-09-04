@@ -3,10 +3,13 @@ import { addComment } from "../../Api/api";
 import { IoMdClose } from "react-icons/io";
 import { BsSend } from "react-icons/bs";
 import { AuthContext } from "../../App";
+import { toast } from "react-toastify";
 
-export function CommentBox({ Comments, showComments, setShowComments, postId }) {
+export function CommentBox({ Comments=[], showComments, setShowComments, postId }) {
   const { authUser } = useContext(AuthContext);
   const [commentText, setCommentText] = useState("");
+  const [allComments, setAllComments] = useState(Comments);
+
 
   const handleCommentChange = (event) => {
     setCommentText(event.target.value);
@@ -14,9 +17,23 @@ export function CommentBox({ Comments, showComments, setShowComments, postId }) 
 
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
-    if (commentText.trim() !== "") {
-      await addComment(commentText, postId);
-      setCommentText("");
+    try {
+      if (commentText.trim() !== "") {
+       const response = await addComment(commentText, postId);
+       console.log(response)
+       if (response.status === 201) {
+        console.log("all comments ",allComments)
+        const randomId = Math.round(Math.random() * 100)
+         setAllComments((prev)=>([...prev, {_id: randomId, name: authUser.name, comment: commentText, createdAt:new Date().toLocaleDateString()}]))
+         toast.success("Comment Added successfully")
+         setCommentText("");
+         
+        }
+      }
+      
+    } catch (error) {
+      toast.error("Something went wrong")
+      
     }
   };
 
@@ -41,12 +58,12 @@ export function CommentBox({ Comments, showComments, setShowComments, postId }) 
 
         {/* Existing Comments */}
         <div className="flex flex-col gap-4 px-3 mt-20 pb-28">
-          {Comments.length === 0 ? (
+          {allComments?.length === 0 ? (
             <p className="text-center text-slate-500 dark:text-slate-400 italic">
               No comments yet. Be the first one!
             </p>
           ) : (
-            Comments.map((comment, index) => {
+            allComments?.map((comment, index) => {
               const commentDate = new Date(comment.createdAt).toLocaleDateString();
               return (
                 <div

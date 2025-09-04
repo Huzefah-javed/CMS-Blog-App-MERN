@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const api = axios.create({
-    baseURL: "http://localhost:5000",
+    baseURL: "https://cms-blog-app-mern-production.up.railway.app",
     withCredentials: true
 })
 
@@ -93,9 +93,7 @@ const result = await api.get(`admin/decliningPosts/${postId}`, {withCredentials:
 }
 
 export const addLike =async(id)=>{
-   console.log("check id ",id)
    const result = await api.post("/addLike", {postId: id}, {withCredentials: true})
-   console.log(result)
    return result.data;
 }
 export const addComment =async(userComment, id)=>{

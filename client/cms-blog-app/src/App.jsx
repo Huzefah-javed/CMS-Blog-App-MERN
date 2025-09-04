@@ -19,6 +19,7 @@ import { UserProfile } from "./pages/user/userProfile";
 import { UserLayout } from "./layouts/userLayout";
 import { Registration } from "./pages/registration";
 import NotFound from "./pages/404";
+import UserNotApproved from "./pages/userNotApprove"
 import { ToastContainer } from 'react-toastify';
 
 export const AuthContext = createContext({})
@@ -138,7 +139,7 @@ const route = roleBasedRoute()
 const router = createBrowserRouter([
   {
   path: "/",
-  element: Object.keys(authUser).length === 0?  <Login/>: <Navigate to={`/${authUser.role}/dashboard`} />,
+  element: Object.keys(authUser).length === 0?  <Login/>: authUser.isApprove === true? <Navigate to={`/${authUser.role}/dashboard`} />:<UserNotApproved/>,
     },
   {
   path: "/registration",

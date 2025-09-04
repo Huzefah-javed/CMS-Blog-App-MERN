@@ -16,15 +16,27 @@ useEffect(()=>{
 
 
   const onApprove=async(id)=>{
-    await approval(id)
-    toast.success("Approved successfully") 
-    setData(prev=> prev.filter(elem=> elem._id!==id))
+    try {
+      await approval(id)
+      toast.success("Approved successfully") 
+      setData(prev=> prev.filter(elem=> elem._id!==id))
+      
+    } catch (error) {
+      toast.error("Something went wrong") 
+      
+    }
   }
   
   const onDecline =async(id)=>{
-    await decline(id)
-    setData(prev=> prev.filter(elem=> elem._id!==id))
-    toast.success("Decline successfully") 
+    try {
+      await decline(id)
+      setData(prev=> prev.filter(elem=> elem._id!==id))
+      toast.success("Decline successfully") 
+      
+    } catch (error) {
+      toast.error("Something went wrong") 
+      
+    }
   
   }
 
