@@ -139,7 +139,7 @@ const route = roleBasedRoute()
 const router = createBrowserRouter([
   {
   path: "/",
-  element: Object.keys(authUser).length === 0?  <Login/>: authUser.isApprove === true? <Navigate to={`/${authUser.role}/dashboard`} />:<UserNotApproved/>,
+  element: Object.keys(authUser).length === 0?  <Login/>: authUser.isApprove === "approve"? <Navigate to={`/${authUser.role}/dashboard`} />:<UserNotApproved/>,
     },
   {
   path: "/registration",
