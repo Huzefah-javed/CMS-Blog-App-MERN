@@ -15,7 +15,7 @@ export default function UserNotApproved() {
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center bg-[#f4f4f4] dark:bg-slate-800 px-4">
       <h1 className="text-6xl font-bold text-gray-800 dark:text-gray-200 mb-4">
-        400
+        403
       </h1>
       <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 text-center max-w-md">
         Oops! you are not approved yet by admin
